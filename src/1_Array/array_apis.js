@@ -275,45 +275,90 @@ function isLargeNumber(element) {
 }
 console.log(find_index_array.findIndex(isLargeNumber)); // 3
 /**
- * 9、Array.prototype.find()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+ * 9、Array.prototype.find(callback[, thisArg])：返回数组中满足提供的测试函数的第一个元素的值，否则返回undefined。
  */
+const find_array = [5, 12, 8, 130, 44];
+const found = find_array.find(function (element) {
+  return element > 10;
+});
+console.log(found); // 12
 
 /**
- * 10、Array.prototype.keys()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+ * 10、Array.prototype.keys()：返回一个包含数组中每个索引键的 Array Iterator 对象。
  */
+const keys_array = ["a", "b", "c"];
+const iterator = keys_array.keys();
+
+for (let key of iterator) {
+  console.log(key); //  0 1 2
+}
 
 /**
- * 11、Array.prototype.values()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+ * 11、Array.prototype.values()：返回一个新的 Array Iterator 对象，该对象包含数组的每个索引的值。
  */
+const values_array = ["a", "b", "c"];
+const _values = values_array.values();
+for (const value of _values) {
+  console.log(value); // "a" "b" "c"
+}
 
 /**
- * 12、Array.prototype.entries()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+ * 12、Array.prototype.entries()：返回一个新的 Array Iterator 对象，该对象包含数组中每个索引的键值对；
  */
+const entries_array = ["a", "b", "c"];
+const iterator1 = entries_array.entries();
+console.log(iterator1.next().value); // expected output: Array [0, "a"]
+console.log(iterator1.next().value); // expected output: Array [1, "b"]
 
 /**
  * 四、其他方法（6个）
  */
 
 /**
- * 1、Array.of()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+ * 1、Array.of()：创建一个具有可变数量参数的新数组实例，而不考虑参数的数量或类型。
  */
 
 /**
- * 2、Array.from()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+ * 2、Array.from()：从一个类似数组或可迭代对象中创建一个新的，浅拷贝的数组实例。
  */
 
 /**
- * 3.Array.isArray()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+ * 3.Array.isArray()：用于确定传递的值是否是一个 Array。
  */
 
 /**
- * 4.Array.valueOf()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+ * 4.Array.valueOf()：返回 Array 对象的原始值。
  */
+const value_of_array = ["Banana", "Orange", "Apple", "Mango"];
+const _value_ = value_of_array.valueOf();
+console.log(_value_); // ["Banana", "Orange", "Apple", "Mango"]
 
 /**
- * 5.Array.flat()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+ * 5.Array.prototype.flat(depth)：该方法会按照一个可指定的深度递归遍历数组，并将所有元素与遍历到的子数组中的元素合并为一个新数组返回。
  */
+// 典型的应用就是数组的扁平化
+const flat_array_1 = [1, 2, [3, 4]];
+console.log(flat_array_1.flat()); // [1, 2, 3, 4]
+
+const flat_array_2 = [1, 2, [3, 4, [5, 6]]];
+console.log(flat_array_2.flat()); // [1, 2, 3, 4, [5, 6]]
+
+const flat_array_3 = [1, 2, [3, 4, [5, 6]]];
+console.log(flat_array_3.flat(2)); // [1, 2, 3, 4, 5, 6]
+
+//使⽤ Infinity 作为深度，展开任意深度的嵌套数组
+console.log(flat_array_3.flat(Infinity)); // [1, 2, 3, 4, 5, 6]
 
 /**
- * 6.Array.flatMap()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+ * 6.Array.prototype.flatMap()：首先使用映射函数映射每个元素，然后将结果压缩成一个新数组。它与 map 和深度值为1的flat几乎相同。
+ * 但是 flatMap 通常会在合并成一种方法的效率稍微高一些。
+ * var new_array = arr.flatMap(function callback(currentValue[, index[, array]]) {
+ * // 返回新数组的元素
+ * }[, thisArg])
  */
+const flat_map_array = [1, 2, 3, 4];
+flat_map_array.map((x) => [x * 2]); // [[2], [4], [6], [8]]
+flat_map_array.flatMap((x) => [x * 2]); // [2, 4, 6, 8]
+
+// 只会将 flatMap 中的函数返回的数组 “压平” ⼀层
+flat_map_array.flatMap((x) => [[x * 2]]); // [[2], [4], [6], [8]]
