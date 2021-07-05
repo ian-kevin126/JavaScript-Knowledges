@@ -1,6 +1,4 @@
-/**
- * 一、会改变数组自身的方法（9个）
- */
+/***************************************** 一、会改变数组自身的方法（9个） **********************************************************************/
 
 /**
  * 1、Array.prototype.copyWithin(target[, start[, end]])：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
@@ -34,34 +32,71 @@ console.log(fill_array.fill(4, NaN, NaN)); // [1, 2, 3, 4, 5]
  * 3、Array.prototype.pop()：从数组中删除最后一个元素，并返回该元素的值。
  */
 console.log([12, 2, 3, 44, , 55, 56, 6, 6].pop()); // 6
+
 /**
  * 4、Array.prototype.push(element1, ..., elementN))：将一个或多个元素添加到数组的末尾，并返回该数组的新长度。
  * 注意：返回的是数组的新长度。
  */
 console.log([1, 2, 3, 4, 5].push(6, 7, 8, 9)); // 9
-/**
- * 5、Array.prototype.shift()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
- */
 
 /**
- * 6、Array.prototype.unshift()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+ * 5、Array.prototype.shift()：从数组中删除第一个元素，并返回该元素的值。
  */
+console.log([1, 2, 3, 4, 5, 6].shift()); // 1
+
+/**
+ * 6、Array.prototype.unshift(element1, ..., elementN)：将一个或多个元素添加到数组的开头，并返回该数组的新长度。
+ */
+console.log([1, 2, 3, 4, 5].unshift(0, 0, 0)); // 8
 
 /**
  * 7、Array.prototype.reverse()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
  */
+const reverse_array = [1, 2, 3, 4, 5];
+const reversed_array = reverse_array.reverse();
+console.log(reverse_array, reversed_array, reversed_array === reverse_array); // [5, 4, 3, 2, 1]  [5, 4, 3, 2, 1]  true
 
 /**
- * 8、Array.prototype.sort()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+ * 8、Array.prototype.sort([compareFunction]))：用原地算法对数组的元素进行排序，并返回数组。
  */
+const months = ["March", "Jan", "Feb", "Dec"];
+console.log(months.sort()); // ["Dec", "Feb", "Jan", "March"]
+
+const sort_array = [1, 30, 4, 21, 100000];
+console.log(sort_array.sort()); // [1, 100000, 21, 30, 4]
+console.log(sort_array.sort((a, b) => a - b)); // [1, 4, 21, 30, 100000]
+
+const sort_array_1 = [
+  { name: "Edward", value: 21 },
+  { name: "Sharpe", value: 37 },
+  { name: "And", value: 45 },
+  { name: "The", value: -12 },
+  { name: "Magnetic" },
+  { name: "Zeros", value: 37 },
+];
+console.log(
+  sort_array_1.sort(function (a, b) {
+    var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+    var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    // names must be equal
+    return 0;
+  })
+);
 
 /**
- * 9、Array.prototype.splice()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+ * 9、Array.prototype.splice(start[, deleteCount[, item1[, item2[, ...]]]])：通过删除或替换现有元素或者原地添加新的元素来修改数组，并以数组形式返回被修改的内容
  */
+const splice_array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+console.log(splice_array.splice(2, 0, ["a", "b", "c"])); // []
+console.log(splice_array); // [1, 2, Array(3), 3, 4, 5, 6, 7, 8, 9]
 
-/**
- * 二、不会改变数组的方法（9个）
- */
+/***************************************** 二、不会改变数组的方法（9个）**********************************************************************/
 
 /**
  * 1、Array.prototype.concat(arrayX, arrayX, ..., arrayX)：用于连接两个或多个数组，返回被连接数组的一个副本。
@@ -70,6 +105,7 @@ const arr_1 = [1, 2, 3, 4, 5, 6];
 const newArr_1 = arr_1.concat(["a", "b", "c"], false, "ddd");
 console.log(newArr_1); // [1, 2, 3, 4, 5, 6, "a", "b", "c", false, "ddd"]
 console.log(arr_1); // [1, 2, 3, 4, 5, 6] 不改变原数组
+
 /**
  * 2、Array.prototype.join([separator])：将一个数组（或一个类数组对象）的所有元素连接成一个字符串并返回这个字符串。
  *    如果数组只有一个项目，那么将返回该项目而不使用分隔符。如果一个元素为undefined或者null，它会被转换为空字符串。
@@ -78,6 +114,7 @@ const arr_2 = ["Fire", "water", "element"];
 console.log(arr_2.join()); // Fire,water,element
 console.log([1].join("-")); // 1
 console.log([1, , , , , , , , , 5].join("-")); // 1---------5
+
 /**
  * 3、Array.prototype.slice(begin, end)：方法返回一个新数组，这一对象是一个由begin和end（不包括end）决定的原数组的拷贝，不改变原数组。
  */
@@ -117,6 +154,7 @@ const indexOf_arr = ["ant", "bison", "camel", "duck", "bison"];
 console.log(indexOf_arr.indexOf("bison1")); // -1
 console.log(indexOf_arr.indexOf("bison")); // 1
 console.log(indexOf_arr.indexOf("bison", 2)); // 4
+
 /**
  * 6、Array.prototype.lastIndexOf(searchElement[, fromIndex = 0])：返回在数组中可以找到一个给定元素的最后一个索引，如果不存在，则返回-1；
  *    fromIndex：从此位置开始逆向查找。默认为数组的长度减1，即整个数组都会被查找。
@@ -125,6 +163,7 @@ const lastIndexOf_arr = ["ant", "bison", "camel", "duck", "bison"];
 console.log(lastIndexOf_arr.lastIndexOf("bison1")); // -1
 console.log(lastIndexOf_arr.lastIndexOf("bison")); // 4
 console.log(lastIndexOf_arr.lastIndexOf("bison", 2)); // 1
+
 /**
  * 7、Array.prototype.toString()：返回一个字符串，表示指定的数组及其元素。
  */
@@ -147,42 +186,94 @@ console.log(
  * 9、Array.prototype.toSource()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
  */
 
-/**
- * 三、数组遍历方法（12个）
- */
+/***************************************** 三、数组遍历方法（12个）**********************************************************************/
 
 /**
- * 1、Array.prototype.forEach()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+ * 1、Array.prototype.forEach(callback[, thisArg])：对数组的每一个元素执行一次提供的回调函数。
  */
+const forEach_array = ["a", "b", "c"];
+forEach_array.forEach(function (element) {
+  console.log(element); // a b c
+});
 
 /**
- * 2、Array.prototype.map()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+ * 2、Array.prototype.map()：创建一个新数组，其结果是该数组中的每一个元素都调用一个提供的函数后返回的结果。
+ * var new_array = arr.map(function callback(currentValue[, index[, array]]) {
+ *  // Return element for new_array
+ * }[, thisArg])
  */
+const map_array = [1, 2, 3, 4, 5];
+const new_map_array = map_array.map((x) => x * 2);
+console.log(new_map_array); // [2, 4, 6, 8, 10]
 
 /**
- * 3、Array.prototype.every()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+ * 3、Array.prototype.every(callback[, thisArg]))：测试一个数组内的所有元素是否都通过某个指定函数的测试。
+ * 它返回一个布尔值
  */
+function isBigEnough(element, index, array) {
+  return element >= 10;
+}
+console.log([12, 5, 8, 130, 44].every(isBigEnough)); // false
+console.log([12, 54, 18, 130, 44].every(isBigEnough)); // true
+/**
+ * 4、Array.prototype.filter(callback(element[, index[, array]])[, thisArg])：创建一个新数组，其包含通过所提供的的函数实现的测试的所有元素。
+ */
+const filtered = [12, 5, 8, 130, 44].filter(isBigEnough);
+console.log(filtered); // [12, 130, 44]
 
 /**
- * 4、Array.prototype.filter()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+ * 5、Array.prototype.some(callback(element[, index[, array]])[, thisArg])：方法测试是否至少有一个可以通过被提供的函数方法，返回一个Boolean值。
  */
+const some_array = [1, 2, 3, 4, 5];
+const even = function (element) {
+  return element % 2 === 0;
+};
+console.log(some_array.some(even)); // true
 
 /**
- * 5、Array.prototype.some()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+ * 6、Array.prototype.reduce(callback(accumulator, currentValue[, index[, array]])[, initialValue])：方法对数组中的每一个元素执行一个由您提供的reducer函数（升序执行）
+ * 将其结果汇总为单个返回值。
  */
+const reduce_array = [0, 1, 2, 3, 4].reduce(function (
+  accumulator,
+  currentValue,
+  currentIndex,
+  array
+) {
+  return accumulator + currentValue;
+},
+10);
+console.log(reduce_array); // 20
 
 /**
- * 6、Array.prototype.reduce()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+ * 7、Array.prototype.reduceRight(callback[, initialValue])：接收一个函数作为累加器和数组的每个值（从右到左）将其减少为单个值。
  */
+const reduce_right_array = [
+  [0, 1],
+  [2, 3],
+  [4, 5],
+].reduceRight((accumulator, currentValue) => accumulator.concat(currentValue));
+console.log(reduce_right_array); // [4, 5, 2, 3, 0, 1]
+
+const reduce_right_array_2 = [0, 1, 2, 3, 4].reduceRight(function (
+  previousValue,
+  currentValue,
+  index,
+  array
+) {
+  return previousValue + currentValue;
+},
+10);
+console.log(reduce_right_array_2); // 20
 
 /**
- * 7、Array.prototype.reduceRight()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
+ * 8、Array.prototype.findIndex(callback[, thisArg])：返回数组中满足提供的测试函数的第一个元素的索引，否则会返回-1。
  */
-
-/**
- * 8、Array.prototype.findIndex()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
- */
-
+const find_index_array = [5, 12, 8, 130, 44];
+function isLargeNumber(element) {
+  return element > 13;
+}
+console.log(find_index_array.findIndex(isLargeNumber)); // 3
 /**
  * 9、Array.prototype.find()：在数组内部，将一段元素序列拷贝到另一段元素序列上，覆盖原有的值。
  */
