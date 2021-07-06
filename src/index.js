@@ -1,1 +1,1 @@
-import "./3_Queue/queue_basics";
+import "./3_Queue/queue_advanced";
