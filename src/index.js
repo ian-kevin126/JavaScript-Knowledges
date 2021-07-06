@@ -1,1 +1,1 @@
-import "./2_Stack/stack_basics.js";
+import "./2_Stack/towerOfHanoi";
