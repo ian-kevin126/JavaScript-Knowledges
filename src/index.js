@@ -1,1 +1,1 @@
-import "./3_Queue/queue_advanced";
+import "./3_Queue/priority_queue";
