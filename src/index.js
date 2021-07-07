@@ -1,1 +1,1 @@
-import "./3_Queue/priority_queue";
+import "./3_Queue/circular_queue";
