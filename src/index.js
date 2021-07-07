@@ -1,1 +1,1 @@
-import "./4_LinkedList/linked_list_basics";
+import "./4_LinkedList/doubly_linked_list";

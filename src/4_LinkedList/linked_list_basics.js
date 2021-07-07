@@ -184,6 +184,16 @@ function LinkedList() {
     return -1;
   };
 
+  // 获取指定位置的元素值
+  this.getElementAt = function (position) {
+    if (position < 0 || position > length) return null;
+    let current = head;
+    for (let i = 0; i < position; i++) {
+      current = current.next;
+    }
+    return current.element;
+  };
+
   // 既然我们有了removeAt和indexOf两个方法，那么设计remove方法就容易了
   this.remove = function (element) {
     let index = this.indexOf(element);
