@@ -62,14 +62,14 @@ console.log(a.next.next.next.value); // 4
  */
 function LinkedList() {
   // node是链表中的单独元素，但是这个元素中又包含自身的值和指向下一个node的指针
-  const Node = function (element) {
+  const Node = function (element = null, next = null) {
     // node的自身元素
     this.element = element;
     // 这个next要特别注意，它在理论上是指向链表下一个节点元素的指针，但是在js的实现中，其实这个指针不过是一个对象的索引，而这个索引包含的就是下一个node
     // 就像是这样{element:1,next:{element,next:{element:3,next...}}}，这种对象的一层层嵌套，这样也可以解释了为什么在中间插入链表元素时，
     // 需要一层一层的迭代到需要插入的位置。
     // 换句话说，这里的next指针，指向的是下一个node节点元素的整体，不单单只是node中的element元素。
-    this.next = null;
+    this.next = next;
   };
 
   let length = 0; // 链表长度初始化
