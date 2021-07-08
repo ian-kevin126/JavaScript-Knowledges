@@ -1,1 +1,1 @@
-import "./4_LinkedList/circular_linked_list";
+import "./4_LinkedList/examples";
