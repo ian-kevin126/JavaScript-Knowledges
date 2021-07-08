@@ -25,32 +25,32 @@ let CircularLinkedList = (function () {
         current;
 
       if (this.getHead() === null) {
-        //first node on list
+        // 如果链表是空的
         head.set(this, node);
       } else {
         current = this.getHead();
 
-        //loop the list until find last item
+        // 循环链表，直到最后一个
         while (current.next !== this.getHead()) {
-          //last element will be head instead of NULL
+          // 最后一个元素连接head，而不再是null了
           current = current.next;
         }
 
-        //get last item and assign next to added item to make the link
+        // 遍历到最后一个元素，将current.next指向这个节点元素
         current.next = node;
       }
 
-      //set node.next to head - to have circular list
+      // 别忘了，再将最后一个元素连接到第一个元素
       node.next = this.getHead();
 
-      //update size of list
+      // 更新length
       let l = this.size();
       l++;
       length.set(this, l);
     }
 
     insert(position, element) {
-      //check for out-of-bounds values
+      // 校验position的值，不能小于0，不能大于length
       if (position >= 0 && position <= this.size()) {
         let node = new Node(element),
           current = this.getHead(),
@@ -58,17 +58,14 @@ let CircularLinkedList = (function () {
           index = 0;
 
         if (position === 0) {
-          //add on first position
-
+          // 插入头部
           node.next = current;
-
-          //update last element
           while (current.next !== this.getHead()) {
-            //last element will be head instead of NULL
             current = current.next;
           }
 
           head.set(this, node);
+          // 将最后一个元素的指向变更为新的head
           current.next = this.getHead();
         } else {
           while (index++ < position) {
@@ -79,7 +76,6 @@ let CircularLinkedList = (function () {
           previous.next = node;
         }
 
-        //update size of list
         let l = this.size();
         l++;
         length.set(this, l);
@@ -91,30 +87,29 @@ let CircularLinkedList = (function () {
     }
 
     removeAt(position) {
-      //check for out-of-bounds values
+      // 检查position的合法性
       if (position > -1 && position < this.size()) {
         let current = this.getHead(),
           previous,
           index = 0;
 
-        //removing first item
+        // 移除头部元素
         if (position === 0) {
           while (current.next !== this.getHead()) {
-            //needs to update last element first
+            // 更新最后一个元素连接的对象
             current = current.next;
           }
 
           head.set(this, this.getHead().next);
           current.next = this.getHead();
         } else {
-          //no need to update last element for circular list
-
+          //  如果不是头部元素，中间的就不需要更新指向了
           while (index++ < position) {
             previous = current;
             current = current.next;
           }
 
-          //link previous with current's next - skip it to remove
+          // 连接previous到current.next，跳过中间的一个元素，就实现了移除
           previous.next = current.next;
         }
 
@@ -137,14 +132,14 @@ let CircularLinkedList = (function () {
       let current = this.getHead(),
         index = -1;
 
-      //check first item
+      // 如果是头部节点
       if (element == current.element) {
         return 0;
       }
 
       index++;
 
-      //check in the middle of the list
+      // 如果是中间的节点
       while (current.next !== this.getHead()) {
         if (element == current.element) {
           return index;
@@ -154,7 +149,7 @@ let CircularLinkedList = (function () {
         index++;
       }
 
-      //check last item
+      // 如果是最后一个节点
       if (element == current.element) {
         return index;
       }
