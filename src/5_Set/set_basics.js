@@ -104,6 +104,15 @@ class ClassSet {
   }
 
   // 判断是否是子集
+  subset(otherSet) {
+    if (this.size() > otherSet.size()) return false;
+    for (const value of this.values()) {
+      if (!otherSet.has(value)) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
 
 /**
