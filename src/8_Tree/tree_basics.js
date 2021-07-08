@@ -1,5 +1,7 @@
 /**
  * 树
+ *
+ * https://www.cnblogs.com/jaxu/p/11309385.html
  */
 
 let insertNode = function (node, newNode) {
