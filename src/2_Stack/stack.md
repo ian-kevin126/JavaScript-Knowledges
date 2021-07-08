@@ -1,8 +1,8 @@
 # [JavaScript 数据结构——栈的实现与应用](https://www.cnblogs.com/jaxu/p/11264017.html)
 
-​		在计算机编程中，栈是一种很常见的数据结构，它遵从后进先出（LIFO——Last In First Out）原则，新添加或待删除的元素保存在栈的同一端，称作栈顶，另一端称作栈底。在栈中，新元素总是靠近栈顶，而旧元素总是接近栈底。
+​ 在计算机编程中，栈是一种很常见的数据结构，它遵从后进先出（LIFO——Last In First Out）原则，新添加或待删除的元素保存在栈的同一端，称作栈顶，另一端称作栈底。在栈中，新元素总是靠近栈顶，而旧元素总是接近栈底。
 
-​		让我们来看看在 JavaScript 中如何实现栈这种数据结构。
+​ 让我们来看看在 JavaScript 中如何实现栈这种数据结构。
 
 ```JavaScript
 function Stack() {    let items = [];
@@ -43,7 +43,7 @@ function Stack() {    let items = [];
 }
 ```
 
-​		我们用最简单的方式定义了一个 Stack 类。在 JavaScript 中，我们用 function 来表示一个类。然后我们在这个类中定义了一些方法，用来模拟栈的操作，以及一些辅助方法。代码很简单，看起来一目了然，接下来我们尝试写一些测试用例来看看这个类的一些用法。
+我们用最简单的方式定义了一个 Stack 类。在 JavaScript 中，我们用 function 来表示一个类。然后我们在这个类中定义了一些方法，用来模拟栈的操作，以及一些辅助方法。代码很简单，看起来一目了然，接下来我们尝试写一些测试用例来看看这个类的一些用法。
 
 ```JavaScript
 let stack = new Stack();
@@ -67,7 +67,7 @@ stack.clear();
 stack.print(); //
 ```
 
-​		返回结果也和预期的一样！我们成功地用 JavaScript 模拟了栈的实现。但是这里有个小问题，由于我们用 JavaScript 的 function 来模拟类的行为，并且在其中声明了一个私有变量 items，因此这个类的每个实例都会创建一个 items 变量的副本，如果有多个 Stack 类的实例的话，这显然不是最佳方案。我们尝试用 ES6（ECMAScript 6）的语法重写 Stack 类。
+​ 返回结果也和预期的一样！我们成功地用 JavaScript 模拟了栈的实现。但是这里有个小问题，由于我们用 JavaScript 的 function 来模拟类的行为，并且在其中声明了一个私有变量 items，因此这个类的每个实例都会创建一个 items 变量的副本，如果有多个 Stack 类的实例的话，这显然不是最佳方案。我们尝试用 ES6（ECMAScript 6）的语法重写 Stack 类。
 
 ```JavaScript
 class Stack {
@@ -105,7 +105,7 @@ class Stack {
 }
 ```
 
-​		没有太大的改变，我们只是用 ES6 的简化语法将上面的 Stack 函数转换成了 Stack 类。类的成员变量只能放到 constructor 构造函数中来声明。虽然代码看起来更像类了，但是成员变量 items 仍然是公有的，我们不希望在类的外部访问 items 变量而对其中的元素进行操作，因为这样会破坏栈这种数据结构的基本特性。我们可以借用 ES6 的 Symbol 来限定变量的作用域。
+​ 没有太大的改变，我们只是用 ES6 的简化语法将上面的 Stack 函数转换成了 Stack 类。类的成员变量只能放到 constructor 构造函数中来声明。虽然代码看起来更像类了，但是成员变量 items 仍然是公有的，我们不希望在类的外部访问 items 变量而对其中的元素进行操作，因为这样会破坏栈这种数据结构的基本特性。我们可以借用 ES6 的 Symbol 来限定变量的作用域。
 
 ```JavaScript
 let _items = Symbol();
@@ -145,14 +145,14 @@ class Stack {
 }
 ```
 
-​		这样，我们就不能再通过 Stack 类的实例来访问其内部成员变量\_items 了。但是仍然可以有变通的方法来访问\_items：
+这样，我们就不能再通过 Stack 类的实例来访问其内部成员变量\_items 了。但是仍然可以有变通的方法来访问\_items：
 
 ```JavaScript
 let stack = new Stack();
 let objectSymbols = Object.getOwenPropertySymbols(stack);
 ```
 
-​		通过 Object.getOwenPropertySymbols()方法，我们可以获取到类的实例中的所有 Symbols 属性，然后就可以对其进行操作了，如此说来，这个方法仍然不能完美实现我们想要的效果。我们可以使用 ES6 的 WeakMap 类来确保 Stack 类的属性是私有的：
+​ 通过 Object.getOwenPropertySymbols()方法，我们可以获取到类的实例中的所有 Symbols 属性，然后就可以对其进行操作了，如此说来，这个方法仍然不能完美实现我们想要的效果。我们可以使用 ES6 的 WeakMap 类来确保 Stack 类的属性是私有的：
 
 ```JavaScript
 const items = new WeakMap();
@@ -195,7 +195,7 @@ class Stack {
 }
 ```
 
-​		现在，items 在 Stack 类里是真正的私有属性了，但是，它是在 Stack 类的外部声明的，这就意味着谁都可以对它进行操作，虽然我们可以将 Stack 类和 items 变量的声明放到[闭包](https://www.w3schools.com/js/js_function_closures.asp)中，但是这样却又失去了类本身的一些特性（如扩展类无法继承私有属性）。所以，尽管我们可以用 ES6 的新语法来简化一个类的实现，但是毕竟不能像其它强类型语言一样声明类的私有属性和方法。有许多方法都可以达到相同的效果，但无论是语法还是性能，都会有各自的优缺点。
+​ 现在，items 在 Stack 类里是真正的私有属性了，但是，它是在 Stack 类的外部声明的，这就意味着谁都可以对它进行操作，虽然我们可以将 Stack 类和 items 变量的声明放到[闭包](https://www.w3schools.com/js/js_function_closures.asp)中，但是这样却又失去了类本身的一些特性（如扩展类无法继承私有属性）。所以，尽管我们可以用 ES6 的新语法来简化一个类的实现，但是毕竟不能像其它强类型语言一样声明类的私有属性和方法。有许多方法都可以达到相同的效果，但无论是语法还是性能，都会有各自的优缺点。
 
 ```JavaScript
 let Stack = (function () {
@@ -240,7 +240,7 @@ let Stack = (function () {
 })();
 ```
 
-​		下面我们来看看栈在实际编程中的应用。
+下面我们来看看栈在实际编程中的应用。
 
 ### 进制转换算法
 
@@ -256,9 +256,9 @@ let Stack = (function () {
 
 我们将上述每一步的余数颠倒顺序排列起来，就得到转换之后的结果：1010。
 
-​		
+​
 
-​		按照这个逻辑，我们实现下面的算法：
+​ 按照这个逻辑，我们实现下面的算法：
 
 ```JavaScript
 function divideBy2(decNumber) {
@@ -283,7 +283,7 @@ console.log(divideBy2(10)); // 1010
 console.log(divideBy2(1000)); // 1111101000
 ```
 
-​		Stack 类可以自行引用本文前面定义的任意一个版本。我们将这个函数再进一步抽象一下，使之可以实现任意进制之间的转换。
+​Stack 类可以自行引用本文前面定义的任意一个版本。我们将这个函数再进一步抽象一下，使之可以实现任意进制之间的转换。
 
 ```JavaScript
 function baseConverter(decNumber, base) {
@@ -317,7 +317,7 @@ console.log(baseConverter(10, 16)); // A
 console.log(baseConverter(1000, 16)); // 3E8
 ```
 
-​		我们定义了一个变量 digits，用来存储各进制转换时每一步的余数所代表的符号。如：二进制转换时余数为 0，对应的符号为 digits[0]，即 0；八进制转换时余数为 7，对应的符号为 digits[7]，即 7；十六进制转换时余数为 11，对应的符号为 digits[11]，即 B。
+​ 我们定义了一个变量 digits，用来存储各进制转换时每一步的余数所代表的符号。如：二进制转换时余数为 0，对应的符号为 digits[0]，即 0；八进制转换时余数为 7，对应的符号为 digits[7]，即 7；十六进制转换时余数为 11，对应的符号为 digits[11]，即 B。
 
 ### 汉诺塔
 
@@ -347,7 +347,7 @@ console.log(baseConverter(1000, 16)); // 3E8
 
 ![img](https://img2018.cnblogs.com/blog/51946/201907/51946-20190730103200105-567503357.gif)
 
-​		一共需要七步。我们用代码描述如下：
+​ 一共需要七步。我们用代码描述如下：
 
 ```JavaScript
 function hanoi(plates, source, helper, dest, moves = []) {
@@ -365,7 +365,7 @@ function hanoi(plates, source, helper, dest, moves = []) {
 }
 ```
 
-​		下面是执行结果：
+​ 下面是执行结果：
 
 ```JavaScript
 console.log(hanoi(3, 'source', 'helper', 'dest'));
@@ -383,13 +383,13 @@ console.log(hanoi(3, 'source', 'helper', 'dest'));
 ]
 ```
 
-​		可以试着将 3 改成大一点的数，例如 14，你将会得到如下图一样的结果：
+​ 可以试着将 3 改成大一点的数，例如 14，你将会得到如下图一样的结果：
 
 ![img](https://img2018.cnblogs.com/blog/51946/201907/51946-20190730103718381-406400570.png)
 
-​		如果我们将数改成 64 呢？就像上面第二个故事里所描述的一样。恐怕要令你失望了！这时候你会发现你的程序无法正确返回结果，甚至会由于超出递归调用的嵌套次数而报错。这是由于移动 64 层的汉诺塔所需要的步骤是一个很大的数字，我们在前面的故事中已经描述过了。如果真要实现这个过程，这个小程序恐怕很难做到了。
+​ 如果我们将数改成 64 呢？就像上面第二个故事里所描述的一样。恐怕要令你失望了！这时候你会发现你的程序无法正确返回结果，甚至会由于超出递归调用的嵌套次数而报错。这是由于移动 64 层的汉诺塔所需要的步骤是一个很大的数字，我们在前面的故事中已经描述过了。如果真要实现这个过程，这个小程序恐怕很难做到了。
 
-​		搞清楚了汉诺塔的移动过程，我们可以将上面的代码进行扩充，把我们在前面定义的栈的数据结构应用进来，完整的代码如下：
+​ 搞清楚了汉诺塔的移动过程，我们可以将上面的代码进行扩充，把我们在前面定义的栈的数据结构应用进来，完整的代码如下：
 
 ```JavaScript
 function towerOfHanoi(plates, source, helper, dest, sourceName, helperName, destName, moves = []) {
@@ -429,7 +429,7 @@ function hanoiStack(plates) {
 }
 ```
 
-​		我们定义了三个栈，用来表示汉诺塔中的三个针塔，然后按照函数 hanoi()中相同的逻辑来移动这三个栈中的元素。当 plates 的数量为 3 时，执行结果如下：
+​ 我们定义了三个栈，用来表示汉诺塔中的三个针塔，然后按照函数 hanoi()中相同的逻辑来移动这三个栈中的元素。当 plates 的数量为 3 时，执行结果如下：
 
 ```JavaScript
 [
