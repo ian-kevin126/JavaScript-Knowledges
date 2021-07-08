@@ -244,3 +244,7 @@ const removeNthFromEnd = function (head, n) {
   // 返回头节点
   return dummy.next;
 };
+
+/**
+ * 8、旋转链表
+ */
