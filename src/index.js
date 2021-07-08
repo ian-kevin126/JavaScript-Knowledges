@@ -1,1 +1,1 @@
-import "./6_Map/map_basics";
+import "./7_Hash/hash_basics";
