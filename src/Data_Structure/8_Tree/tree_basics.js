@@ -1,146 +1,38 @@
 /**
- * 树
+ * 树：一种非线性的数据结构，以分层的方式存储数据，它对存储需要快速查找的数据非常有用。树又有很多子集，比如二叉树、二叉搜索树、2-3树、红黑树等。
+ *
+ * 树相比于数组、链表、哈希表的优势：
+ *  - 数组
+ *    + 优点：可以通过下标值访问，效率高；
+ *    + 缺点：查找数据时需要先对数据进行排序，生成有序数组，才能提高查找效率；并且在插入和删除元素时，需要大量的位移操作。
+ *  - 链表
+ *    + 优点：数据的插入和删除操作效率很高
+ *    + 缺点：查找效率低，需要从头开始依次查找，直到找到目标数据为止，当需要在链表中间插入或删除数据时，插入或删除的效率都不高。
+ *  - 哈希表
+ *    + 优点：哈希表的插入、查询、删除效率都非常高
+ *    + 缺点：空间利用率不高，底层使用的数组中又很多单元没有被充分利用；并且哈希表中的元素是无序的，不能按照固定顺序遍历哈希表中的元素；而且不能快速找出哈希表中最大值或最小值这些特殊值。
+ *  - 树：
+ *    + 优点：树综合了上述三种数据结构的优点，同时也弥补了它们存在的缺点（虽然效率不一定都比它们高），比如树结构中数据都是有序的，查找效率高；并且可以快速获取到最大值和最小值。
  *
  * https://www.cnblogs.com/jaxu/p/11309385.html
+ * https://www.yuque.com/docs/share/a71bb492-8ab2-4015-8a47-8a86fcde97dd?# 《1、二叉树》
  */
 
-let insertNode = function (node, newNode) {
-  if (newNode.element < node.element) {
-    if (node.prev === null) node.prev = newNode;
-    else insertNode(node.prev, newNode);
-  } else {
-    if (node.next === null) node.next = newNode;
-    else insertNode(node.next, newNode);
-  }
-};
+/**
+ * 二叉树：树的节点可以有 0 个或多个子节点，当一棵树（的所有节点）最多只能有两个子节点时，这样的数被称为二叉树。
+ *  - 节点：树的一个元素
+ *  - 叶子：度为0的节点
+ *  - 层： 根在第一层，以此类推
+ *  - 节点的度：节点拥有的子树的个数，二叉树的度不大于2
+ *  - 树的度：树中的最大节点度数
+ *  - 高度：叶子节点的高度为1，根节点的高度最高
+ *
+ * 二叉树分类：
+ *  - 完满二叉树：除去叶节点，每个节点都有两个子节点
+ *  - 完全二叉树：除了最深一层之外，其余所有层的节点都必须有两个子节点
+ *  - 完美二叉树：满足完全二叉树的性质，即满二叉树，树的叶子节点均在最后一层
+ */
 
-let preOrderTraverseNode = function (node, callback) {
-  if (node !== null) {
-    callback(node.element);
-    preOrderTraverseNode(node.prev, callback);
-    preOrderTraverseNode(node.next, callback);
-  }
-};
-
-let inOrderTraverseNode = function (node, callback) {
-  if (node !== null) {
-    inOrderTraverseNode(node.prev, callback);
-    callback(node.element);
-    inOrderTraverseNode(node.next, callback);
-  }
-};
-
-let postOrderTraverseNode = function (node, callback) {
-  if (node !== null) {
-    postOrderTraverseNode(node.prev, callback);
-    postOrderTraverseNode(node.next, callback);
-    callback(node.element);
-  }
-};
-
-let minNode = function (node) {
-  if (node === null) return null;
-
-  while (node && node.prev !== null) {
-    node = node.prev;
-  }
-  return node;
-};
-
-let maxNode = function (node) {
-  if (node === null) return null;
-
-  while (node && node.next !== null) {
-    node = node.next;
-  }
-  return node;
-};
-
-let searchNode = function (node, key) {
-  if (node === null) return false;
-
-  if (key < node.element) return searchNode(node.prev, key);
-  else if (key > node.element) return searchNode(node.next, key);
-  else return true;
-};
-
-let removeNode = function (node, key) {
-  if (node === null) return null;
-
-  if (key < node.element) {
-    node.prev = removeNode(node.prev, key);
-    return node;
-  } else if (key > node.element) {
-    node.next = removeNode(node.next, key);
-    return node;
-  } else {
-    // 第一种情况：一个叶子节点（没有子节点）
-    if (node.prev === null && node.next === null) {
-      node = null;
-      return node;
-    }
-    // 第二种情况：只包含一个子节点
-    if (node.prev === null) {
-      node = node.next;
-      return node;
-    } else if (node.next === null) {
-      node = node.prev;
-      return node;
-    }
-
-    // 第三种情况：有两个子节点
-    let aux = minNode(node.next);
-    node.element = aux.element;
-    node.next = removeNode(node.next, aux.element);
-    return node;
-  }
-};
-
-class BinarySearchTree {
-  constructor() {
-    this.root = null;
-  }
-
-  // 向树中插入一个节点
-  insert(key) {
-    let newNode = new Node(key);
-
-    if (this.root === null) this.root = newNode;
-    else insertNode(this.root, newNode);
-  }
-
-  // 在树中查找一个节点
-  search(key) {
-    return searchNode(this.root, key);
-  }
-
-  // 通过先序遍历方式遍历树中的所有节点
-  preOrderTraverse(callback) {
-    preOrderTraverseNode(this.root, callback);
-  }
-
-  // 通过中序遍历方式遍历树中的所有节点
-  inOrderTraverse(callback) {
-    inOrderTraverseNode(this.root, callback);
-  }
-
-  // 通过后序遍历方式遍历树中的所有节点
-  postOrderTraverse(callback) {
-    postOrderTraverseNode(this.root, callback);
-  }
-
-  // 返回树中的最小节点
-  min() {
-    return minNode(this.root);
-  }
-
-  // 返回树中的最大节点
-  max() {
-    return maxNode(this.root);
-  }
-
-  // 从树中移除一个节点
-  remove(key) {
-    this.root = removeNode(this.root, key);
-  }
-}
+/**
+ * 二叉树的 class 实现
+ */
