@@ -1,1 +1,1 @@
-import "./7_Hash/hash_basics";
+import "./Data_Structure/8_Tree/tree_basics";
