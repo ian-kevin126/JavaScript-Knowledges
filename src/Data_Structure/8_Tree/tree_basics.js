@@ -82,7 +82,7 @@ const binaryTree = {
   },
 };
 
-// 先序遍历
+// 先序遍历（递归版）
 const preOrder = (root) => {
   if (!root) return;
   // 1、先访问根节点
@@ -93,7 +93,7 @@ const preOrder = (root) => {
   preOrder(root.right);
 };
 
-// 中序遍历
+// 中序遍历（递归版）
 const inOrder = (root) => {
   if (!root) return;
   // 1、对根节点的左子树进行中序遍历
@@ -104,7 +104,7 @@ const inOrder = (root) => {
   inOrder(root.right);
 };
 
-// 后序遍历
+// 后序遍历（递归版）
 const postOrder = (root) => {
   if (!root) return;
   // 1、对根节点左子树进行后序遍历
@@ -115,6 +115,91 @@ const postOrder = (root) => {
   console.log(root.value);
 };
 
-preOrder(binaryTree); // 1 2 4 5 3 6 7
-inOrder(binaryTree); // 4 2 5 1 6 3 7
-postOrder(binaryTree); // 4 5 2 6 7 3 1
+// preOrder(binaryTree); // 1 2 4 5 3 6 7
+// inOrder(binaryTree); // 4 2 5 1 6 3 7
+// postOrder(binaryTree); // 4 5 2 6 7 3 1
+
+// 一般来说，递归版的太过容易，导致面试的时候面试官不屑于考这种题目，所以我们需要掌握更高阶的非递归版本，堆栈实现，将要访问的节点push到堆栈，用完就pop出来
+
+/**
+ * 先序遍历
+ *
+ * 堆栈实现前序遍历的过程：
+ * 1、先把根节点push进栈，弹出来，访问根节点
+ * 2、将右子树和左子树push进栈，while条件生效，弹出左子节点，访问其值，再将左子节点的左子节点和右子节点push进栈
+ * 3、等把所有的左子节点全部访问完了，在访问右子节点
+ */
+const advancedPreOrder = (root) => {
+  if (!root) return;
+  // 1、将根元素push到栈中
+  const stack = [root];
+  // 4、循环逻辑
+  while (stack.length) {
+    // 2、将栈顶元素弹出，并访问节点的值
+    const node = stack.pop();
+    console.log(node.value);
+    // 3、由于栈是后进先出，我们需要先将右子树push进栈，再将左子树push进栈
+    if (node.right) stack.push(node.right);
+    if (node.left) stack.push(node.left);
+  }
+};
+
+// advancedPreOrder(binaryTree); // 1 2 4 5 3 6 7
+
+/**
+ * 中序遍历
+ *
+ * 堆栈实现中序遍历的过程：
+ * 1、先把根节点左子树全部入栈，弹出左节点，访问它，
+ * 2、再把右节点入栈，弹出右节点，然后访问它。
+ */
+const advancedInOrder = (root) => {
+  if (!root) return;
+
+  const stack = [];
+
+  let p = root;
+
+  // 先左边入栈
+  while (stack.length || p) {
+    while (p) {
+      stack.push(p);
+      p = p.left;
+    }
+    const node = stack.pop();
+    console.log(node.value);
+    p = node.right;
+  }
+};
+
+// advancedInOrder(binaryTree); // 4 2 5 1 6 3 7
+
+/**
+ * 后序遍历
+ *
+ * 实现技巧：先序遍历是“根左右”，而后序遍历是“左右根”，我们把它倒过来变成“根右左”，就跟先序遍历很像的操作。
+ */
+const advancedPostOrder = (root) => {
+  if (!root) return;
+
+  // 倒序输出序列
+  const outputStack = [];
+  const stack = [root];
+
+  // 复用先序遍历的逻辑，只不过是将节点入栈到输出栈里面，左右节点的入栈顺序也调整一下
+  while (stack.length) {
+    debugger;
+    const node = stack.pop();
+    outputStack.push(node);
+    if (node.left) stack.push(node.left);
+    if (node.right) stack.push(node.right);
+  }
+
+  // 倒序输出就是后序遍历的顺序了
+  while (outputStack.length) {
+    const n = outputStack.pop();
+    console.log(n.value);
+  }
+};
+
+advancedPostOrder(binaryTree); // 4 5 2 6 7 3 1
