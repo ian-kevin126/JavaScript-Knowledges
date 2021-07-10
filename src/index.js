@@ -1,1 +1,1 @@
-import "./Data_Structure/10_Heap/heap_basics";
+import "./Data_Structure/10_Heap/1_heap_basics";
