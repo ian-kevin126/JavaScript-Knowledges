@@ -1,1 +1,1 @@
-import "./Data_Structure/9_Graph/graph_basics";
+import "./Data_Structure/10_Heap/heap_basics";
