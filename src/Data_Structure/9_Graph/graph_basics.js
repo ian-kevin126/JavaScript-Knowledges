@@ -1,280 +1,102 @@
 /**
- * 图
+ * 图：图是网络结构的抽象模型，是一组由边连接的节点。图可以表示任何二元关系，比如道路、航班等...
+ *
+ * JavaScript中没有图这个数据结构，但是可以用object和array来构建图。
+ *
+ * 图的表示法：邻接矩阵、邻接表、关联矩阵等
+ *
+ *                           A  ——>  B  ——>  C
+ *                            ↖   ↙      ↙
+ *                               D  <——  E
+ *
+ * 邻接矩阵：
+ *  - 有关联的置为 1
+ *  - 没有关联的置为 0
+ *
+ *                                A  B  C  D  E
+ *                           --|----------------|
+ *                           A |  0  1  0  0  0 |
+ *                           B |  0  0  1  1  0 |
+ *                           C |  0  0  0  0  1 |
+ *                           D |  1  0  0  0  0 |
+ *                           E |  0  0  0  1  0 |
+ *                           --|----------------|
+ *
+ * 邻接表：其实就是一个对象，还可以用链表来表示
+ *
+ *       {
+ *          A: ["B"],
+ *          B: ["C", "D"],
+ *          C: ["E"],
+ *          D: ["A"],
+ *          E: ["D"],
+ *       }
+ *
+ * 图的常见操作：
+ *  - 深度优先遍历
+ *  - 广度优先遍历
+ *
  */
 
-class Graph {
-  constructor() {
-    this.vertices = []; // 用来存放图中的顶点
-    this.adjList = new Dictionary(); // 用来存放图中的边
-  }
+const graphData = {
+  0: [1, 2],
+  1: [2],
+  2: [0, 3],
+  3: [3],
+};
 
-  // 向图中添加一个新顶点
-  addVertex(v) {
-    if (!this.vertices.includes(v)) {
-      this.vertices.push(v);
-      this.adjList.set(v, []);
+/**
+ * 图的深度优先遍历（递归版）：尽可能深的搜索图的分支
+ *
+ *  - 1、访问根节点
+ *  - 2、对根节点的 ”没访问过的相邻节点“ 挨个进行深度优先遍历
+ */
+
+// 设置一个记录访问过的节点的集合，如果已经访问过的节点我们就不再访问（见第2步）
+const visited = new Set();
+const graph_DFS = (n) => {
+  // 1、访问根节点
+  console.log(n);
+  visited.add(n);
+  graphData[n].forEach((c) => {
+    // 2、对根节点的 ”没有访问过的相邻节点“ 挨个进行深度优先遍历
+    if (!visited.has(c)) {
+      graph_DFS(c);
     }
-  }
+  });
+};
 
-  // 向图中添加a和b两个顶点之间的边
-  addEdge(a, b) {
-    // 如果图中没有顶点a，先添加顶点a
-    if (!this.adjList.has(a)) {
-      this.addVertex(a);
-    }
-    // 如果图中没有顶点b，先添加顶点b
-    if (!this.adjList.has(b)) {
-      this.addVertex(b);
-    }
+graph_DFS(2); // 2 0 1 3
 
-    this.adjList.get(a).push(b); // 在顶点a中添加指向顶点b的边
-    this.adjList.get(b).push(a); // 在顶点b中添加指向顶点a的边
-  }
+/**
+ * 图的广度优先遍历（递归版）：先访问离根节点最近的节点
+ *
+ *  - 1、新建一个队列，把根节点入队
+ *  - 2、把队头出队并访问
+ *  - 3、把队头的 “没访问过的相邻节点” 入队
+ *  - 4、重复第二、三步，直到队列为空
+ */
 
-  // 获取图的vertices
-  getVertices() {
-    return this.vertices;
-  }
+const _visited = new Set();
 
-  // 获取图中的adjList
-  getAdjList() {
-    return this.adjList;
-  }
+const graph_BFS = (n) => {
+  // 1、新建一个队列，把根节点入队
+  _visited.add(n);
+  const q = [n];
+  // 4、重复执行第二、三步
+  while (q.length) {
+    // 2、把队头出队并访问
+    const n = q.shift();
+    console.log(n);
 
-  toString() {
-    let s = "";
-    this.vertices.forEach((v) => {
-      s += `${v} -> `;
-      this.adjList.get(v).forEach((n) => {
-        s += `${n} `;
-      });
-      s += "\n";
+    graphData[n].forEach((c) => {
+      // 3、把队头的 “没访问过的相邻节点” 入队
+      if (!_visited.has(c)) {
+        q.push(c);
+        _visited.add(c);
+      }
     });
-    return s;
   }
-}
-
-const INF = Number.MAX_SAFE_INTEGER;
-const minDistance = (dist, visited) => {
-  let min = INF;
-  let minIndex = -1;
-  for (let v = 0; v < dist.length; v++) {
-    if (visited[v] === false && dist[v] <= min) {
-      min = dist[v];
-      minIndex = v;
-    }
-  }
-  return minIndex;
-};
-const dijkstra = (graph, src) => {
-  const dist = [];
-  const visited = [];
-  const { length } = graph;
-  for (let i = 0; i < length; i++) {
-    dist[i] = INF;
-    visited[i] = false;
-  }
-  dist[src] = 0;
-  for (let i = 0; i < length - 1; i++) {
-    const u = minDistance(dist, visited);
-    visited[u] = true;
-    for (let v = 0; v < length; v++) {
-      if (
-        !visited[v] &&
-        graph[u][v] !== 0 &&
-        dist[u] !== INF &&
-        dist[u] + graph[u][v] < dist[v]
-      ) {
-        dist[v] = dist[u] + graph[u][v];
-      }
-    }
-  }
-  return dist;
 };
 
-dijkstra;
-
-const floydWarshall = (graph) => {
-  const dist = [];
-  const { length } = graph;
-  for (let i = 0; i < length; i++) {
-    dist[i] = [];
-    for (let j = 0; j < length; j++) {
-      if (i === j) {
-        dist[i][j] = 0;
-      } else if (!isFinite(graph[i][j])) {
-        dist[i][j] = Infinity;
-      } else {
-        dist[i][j] = graph[i][j];
-      }
-    }
-  }
-  for (let k = 0; k < length; k++) {
-    for (let i = 0; i < length; i++) {
-      for (let j = 0; j < length; j++) {
-        if (dist[i][k] + dist[k][j] < dist[i][j]) {
-          dist[i][j] = dist[i][k] + dist[k][j];
-        }
-      }
-    }
-  }
-  return dist;
-};
-
-floydWarshall;
-
-const INF = Number.MAX_SAFE_INTEGER;
-const find = (i, parent) => {
-  while (parent[i]) {
-    i = parent[i]; // eslint-disable-line prefer-destructuring
-  }
-  return i;
-};
-const union = (i, j, parent) => {
-  if (i !== j) {
-    parent[j] = i;
-    return true;
-  }
-  return false;
-};
-const initializeCost = (graph) => {
-  const cost = [];
-  const { length } = graph;
-  for (let i = 0; i < length; i++) {
-    cost[i] = [];
-    for (let j = 0; j < length; j++) {
-      if (graph[i][j] === 0) {
-        cost[i][j] = INF;
-      } else {
-        cost[i][j] = graph[i][j];
-      }
-    }
-  }
-  return cost;
-};
-const kruskal = (graph) => {
-  const { length } = graph;
-  const parent = [];
-  let ne = 0;
-  let a;
-  let b;
-  let u;
-  let v;
-  const cost = initializeCost(graph);
-  while (ne < length - 1) {
-    for (let i = 0, min = INF; i < length; i++) {
-      for (let j = 0; j < length; j++) {
-        if (cost[i][j] < min) {
-          min = cost[i][j];
-          a = u = i;
-          b = v = j;
-        }
-      }
-    }
-    u = find(u, parent);
-    v = find(v, parent);
-    if (union(u, v, parent)) {
-      ne++;
-    }
-    cost[a][b] = cost[b][a] = INF;
-  }
-  return parent;
-};
-
-kruskal;
-
-const INF = Number.MAX_SAFE_INTEGER;
-const minKey = (graph, key, visited) => {
-  // Initialize min value
-  let min = INF;
-  let minIndex = 0;
-  for (let v = 0; v < graph.length; v++) {
-    if (visited[v] === false && key[v] < min) {
-      min = key[v];
-      minIndex = v;
-    }
-  }
-  return minIndex;
-};
-const prim = (graph) => {
-  const parent = [];
-  const key = [];
-  const visited = [];
-  const { length } = graph;
-  for (let i = 0; i < length; i++) {
-    key[i] = INF;
-    visited[i] = false;
-  }
-  key[0] = 0;
-  parent[0] = -1;
-  for (let i = 0; i < length - 1; i++) {
-    const u = minKey(graph, key, visited);
-    visited[u] = true;
-    for (let v = 0; v < length; v++) {
-      if (graph[u][v] && !visited[v] && graph[u][v] < key[v]) {
-        parent[v] = u;
-        key[v] = graph[u][v];
-      }
-    }
-  }
-  return parent;
-};
-
-prim;
-
-class Graph {
-  constructor(isDirected = false) {
-    this.isDirected = isDirected;
-    this.vertices = []; // 用来存放图中的顶点
-    this.adjList = new Dictionary(); // 用来存放图中的边
-  }
-
-  // 向图中添加一个新顶点
-  addVertex(v) {
-    if (!this.vertices.includes(v)) {
-      this.vertices.push(v);
-      this.adjList.set(v, []);
-    }
-  }
-
-  // 向图中添加a和b两个顶点之间的边
-  addEdge(a, b) {
-    // 如果图中没有顶点a，先添加顶点a
-    if (!this.adjList.has(a)) {
-      this.addVertex(a);
-    }
-    // 如果图中没有顶点b，先添加顶点b
-    if (!this.adjList.has(b)) {
-      this.addVertex(b);
-    }
-
-    this.adjList.get(a).push(b); // 在顶点a中添加指向顶点b的边
-    if (this.isDirected !== true) {
-      this.adjList.get(b).push(a); // 如果为无向图，则在顶点b中添加指向顶点a的边
-    }
-  }
-
-  // 获取图的vertices
-  getVertices() {
-    return this.vertices;
-  }
-
-  // 获取图中的adjList
-  getAdjList() {
-    return this.adjList;
-  }
-
-  toString() {
-    let s = "";
-    this.vertices.forEach((v) => {
-      s += `${v} -> `;
-      this.adjList.get(v).forEach((n) => {
-        s += `${n} `;
-      });
-      s += "\n";
-    });
-    return s;
-  }
-}
-
-Graph;
+graph_BFS(2); // 2 0 3 1

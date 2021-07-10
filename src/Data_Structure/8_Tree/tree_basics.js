@@ -188,7 +188,6 @@ const advancedPostOrder = (root) => {
 
   // 复用先序遍历的逻辑，只不过是将节点入栈到输出栈里面，左右节点的入栈顺序也调整一下
   while (stack.length) {
-    debugger;
     const node = stack.pop();
     outputStack.push(node);
     if (node.left) stack.push(node.left);
