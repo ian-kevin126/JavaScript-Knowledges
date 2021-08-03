@@ -1,1 +1,1 @@
-import "./Data_Structure/10_Heap/1_heap_basics";
+import "./Algorithms/1_Sort/bubble_sort";
