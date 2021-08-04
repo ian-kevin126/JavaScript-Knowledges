@@ -1,1 +1,1 @@
-import "./Algorithms/1_Sort/bubble_sort";
+import "./Algorithms/1_Sort/insertSort";

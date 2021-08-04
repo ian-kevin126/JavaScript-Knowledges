@@ -1,6 +1,7 @@
 import { shortArray, longArray } from '../data'
 /**
  * 冒泡排序——基础版
+ * https://juejin.cn/post/6932482325159067656
  */
 const bubble_sort_basical_edition = (arr) => {
   const len = arr.length
@@ -8,9 +9,7 @@ const bubble_sort_basical_edition = (arr) => {
   for (let i = 0; i < len; i++) {
     for (let j = 0; j < len - i - 1; j++) {
       if (arr[j] > arr[j + 1]) {
-        const temp = arr[j]
-        arr[j] = arr[j + 1]
-        arr[j + 1] = temp
+        ;[arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]
       }
     }
   }
@@ -28,9 +27,7 @@ const bubble_sort_advanced_edition = (arr) => {
     flag = false // 提前退出冒泡循环的标志
     for (let j = 0; j < len - i - 1; j++) {
       if (arr[j] > arr[j + 1]) {
-        const temp = arr[j]
-        arr[j] = arr[j + 1]
-        arr[j + 1] = temp
+        ;[arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]
         flag = true // 表示有数据交换
       }
     }
