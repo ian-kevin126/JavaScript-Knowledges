@@ -55,6 +55,25 @@ const insertSortCopy = (arr) => {
   return array
 }
 
+const insertSortCopy1 = (arr) => {
+  const array = [...arr]
+  const len = array.length
+  let cur, prevIdx
+  if (len < 2) {
+    return array
+  }
+  for (let i = 1; i < len; i++) {
+    cur = array[i]
+    prevIdx = i - 1
+    while (prevIdx >= 0 && array[prevIdx] > cur) {
+      array[prevIdx + 1] = array[prevIdx]
+      prevIdx--
+    }
+    array[prevIdx + 1] = cur
+  }
+  return array
+}
+
 console.time('插入排序')
-console.log(insertSortCopy(shortArray))
+console.log(insertSortCopy1(shortArray))
 console.timeEnd('插入排序') // 插入排序: 0.964111328125 ms
