@@ -1,7 +1,14 @@
 import { shortArray } from '../data'
 /**
- * 插入排序
+ * 插入排序：插入排序顾名思义，对于未排序的数据，在已排序的序列中从后往前扫描，找到相应的位置进行插入，
+ * 保持已排序序列中元素一直有序。
  * https://juejin.cn/post/6932482325159067656
+ */
+
+/**
+ * 插入排序
+ * @param {*} arr 
+ * @returns 
  */
 const insertSort = (arr) => {
   const array = [...arr]

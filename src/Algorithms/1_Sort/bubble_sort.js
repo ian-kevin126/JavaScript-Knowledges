@@ -1,7 +1,14 @@
 import { shortArray, longArray } from '../data'
 /**
- * 冒泡排序——基础版
+ * 冒泡排序：冒泡排序在每次冒泡操作时会比较相邻的两个元素，看是否满足大小关系要求，不满足就将它俩互换。
+ * 一直迭代到不再需要交换，也就是排序完成。
  * https://juejin.cn/post/6932482325159067656
+ */
+
+/**
+ * 基础版
+ * @param {*} arr
+ * @returns
  */
 const bubble_sort_basical_edition = (arr) => {
   const len = arr.length
@@ -17,7 +24,9 @@ const bubble_sort_basical_edition = (arr) => {
 }
 
 /**
- * 冒泡排序——进阶版
+ * 进阶版
+ * @param {*} arr
+ * @returns
  */
 const bubble_sort_advanced_edition = (arr) => {
   const len = arr.length
