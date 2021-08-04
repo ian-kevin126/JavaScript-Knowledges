@@ -36,6 +36,23 @@ const bubble_sort_advanced_edition = (arr) => {
   return arr
 }
 
+const bubble_copy = (arr) => {
+  const array = [...arr]
+  const len = array.length
+  let flag = false
+  for (let i = 0; i < len; i++) {
+    flag = false
+    for (let j = 0; j < len - i - 1; j++) {
+      if (array[j] > array[j + 1]) {
+        ;[array[j], array[j + 1]] = [array[j + 1], array[j]]
+        flag = true
+      }
+    }
+    if (!flag) break
+  }
+  return array
+}
+
 console.time('基础版冒泡排序时间')
 console.log(bubble_sort_basical_edition(shortArray))
 // [0, 1, 2, 4, 5, 5, 6, 7, 9, 21, 34, 57, 78, 89, 89, 100, 123, 221, 453, 657]
@@ -45,3 +62,8 @@ console.time('进阶版冒泡排序时间')
 console.log(bubble_sort_advanced_edition(shortArray))
 // [0, 1, 2, 4, 5, 5, 6, 7, 9, 21, 34, 57, 78, 89, 89, 100, 123, 221, 453, 657]
 console.timeEnd('进阶版冒泡排序时间') // 进阶版冒泡排序时间: 256.81591796875 ms
+
+console.time('练习')
+console.log(bubble_copy(shortArray))
+// [0, 1, 2, 4, 5, 5, 6, 7, 9, 21, 34, 57, 78, 89, 89, 100, 123, 221, 453, 657]
+console.timeEnd('练习') // 练习: 0.6279296875 ms
