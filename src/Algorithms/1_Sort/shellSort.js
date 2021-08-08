@@ -3,7 +3,7 @@
  * 它会优先比较距离较远的元素。希尔排序又叫缩小增量排序。
  *
  * 算法描述
- * 先将整个待排序的记录序列分割成为若干子序列分别进行直接插入排序，具体算法描述：
+ * 先将整个待排序的记录序列分割成为若干子序列分别进行直接插入排序，具体算法q描述：
  * 1，选择一个增量序列t1，t2，…，tk，其中ti>tj，tk=1；
  * 2，按增量序列个数k，对序列进行k 趟排序；
  * 3，每趟排序，根据对应的增量ti，将待排序列分割成若干长度为m 的子序列，分别对各子表进行直接插入排序。仅增量因子为 1 时，
@@ -40,6 +40,33 @@ const shellSort = (arr) => {
   }
   return array
 }
+
+// shellSort：https://github.com/sisterAn/JavaScript-Algorithms/issues/75
+function shellSort(arr) {
+  for (
+    let gap = Math.floor(arr.length / 2);
+    gap > 0;
+    gap = Math.floor(gap / 2)
+  ) {
+    // 内层循环与插入排序的写法基本一致，只是每次移动的步长变为 gap
+    for (let i = gap; i < arr.length; i++) {
+      let j = i
+      let temp = arr[j]
+      for (; j > 0; j -= gap) {
+        if (!(j - gap >= 0) || !(temp < arr[j - gap])) {
+          break
+        }
+        arr[j] = arr[j - gap]
+      }
+      arr[j] = temp
+    }
+  }
+  return arr
+}
+
+// example
+let arr = [2, 5, 10, 7, 10, 32, 90, 9, 11, 1, 0, 10]
+console.log(shellSort(arr))
 
 console.time('希尔排序')
 console.log(shellSort(shortArray))
