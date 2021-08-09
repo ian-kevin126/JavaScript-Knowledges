@@ -1,1 +1,1 @@
-import "./Algorithms/1_Sort/selectSort";
+import "./Algorithms/1_Sort/shellSort";

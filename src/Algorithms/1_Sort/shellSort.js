@@ -13,36 +13,36 @@
  * https://www.cnblogs.com/onepixel/p/7674659.html
  */
 
-const { shortArray } = require('../data')
+const { shortArray } = require("../data");
 
 const shellSort = (arr) => {
-  const array = [...arr]
-  let len = array.length
+  const array = [...arr];
+  let len = array.length;
   if (len < 2) {
-    return array
+    return array;
   }
   // 通过Math.floor生成增量序列，假如是10个元素的数组，那序列就是 5，2，1
   for (let gap = Math.floor(len / 2); gap > 0; gap = Math.floor(gap / 2)) {
     // 由5开始遍历数组序列
     for (let i = gap; i < len; i++) {
-      let j = i
-      let current = array[i]
+      let j = i;
+      let current = array[i];
       // 如果第5个元素小于第0个元素
       while (j - gap >= 0 && current < array[j - gap]) {
         // 就将第0个元素换到第5个元素的位置
-        array[j] = array[j - gap]
+        array[j] = array[j - gap];
         // 保存左序列中与右序列对应的位置下标
-        j = j - gap
+        j = j - gap;
       }
       // 将比较出来的小值放到左序列中的位置
-      array[j] = current
+      array[j] = current;
     }
   }
-  return array
-}
+  return array;
+};
 
 // shellSort：https://github.com/sisterAn/JavaScript-Algorithms/issues/75
-function shellSort(arr) {
+function shellSort3(arr) {
   for (
     let gap = Math.floor(arr.length / 2);
     gap > 0;
@@ -50,24 +50,68 @@ function shellSort(arr) {
   ) {
     // 内层循环与插入排序的写法基本一致，只是每次移动的步长变为 gap
     for (let i = gap; i < arr.length; i++) {
-      let j = i
-      let temp = arr[j]
+      let j = i;
+      let temp = arr[j];
       for (; j > 0; j -= gap) {
         if (!(j - gap >= 0) || !(temp < arr[j - gap])) {
-          break
+          break;
         }
-        arr[j] = arr[j - gap]
+        arr[j] = arr[j - gap];
       }
-      arr[j] = temp
+      arr[j] = temp;
     }
   }
-  return arr
+  return arr;
 }
 
-// example
-let arr = [2, 5, 10, 7, 10, 32, 90, 9, 11, 1, 0, 10]
-console.log(shellSort(arr))
+const shellSort_1 = (arr) => {
+  const array = [...arr];
+  const len = array.length;
+  let index, current;
+  if (len < 2) {
+    return array;
+  }
+  for (let gap = Math.floor(len / 2); gap > 0; gap = Math.floor(gap / 2)) {
+    for (let i = gap; i < len; i++) {
+      index = i;
+      current = array[i];
+      while (index >= 0 && array[index - gap] > current) {
+        array[index] = array[index - gap];
+        index = index - gap;
+      }
+      array[index] = current;
+    }
+  }
+  return array;
+};
 
-console.time('希尔排序')
-console.log(shellSort(shortArray))
-console.timeEnd('希尔排序') // 希尔排序: 9.881ms
+const shellSort_2 = (arr) => {
+  const array = [...arr];
+  const len = array.length;
+  let j, current;
+  if (len < 2) {
+    return array;
+  }
+  // 增量序列
+  for (let gap = Math.floor(len / 2); gap > 0; gap = Math.floor(gap / 2)) {
+    // 简单的插入排序
+    for (let i = gap; i < array.length; i++) {
+      j = i;
+      current = array[j];
+      while (j >= 0 && array[j] < array[j - gap]) {
+        array[j] = array[j - gap];
+        j = j - gap;
+      }
+      array[j] = current;
+    }
+  }
+  return array;
+};
+
+// example
+let arr = [2, 5, 10, 7, 10, 32, 90, 9, 11, 1, 0, 10];
+console.log(shellSort(arr));
+
+console.time("希尔排序");
+console.log(shellSort_2(shortArray)); // [0, 1, 2, 4, 5, 5, 6, 7, 9, 21, 34, 57, 78, 89, 89, 100, 123, 221, 453, 657]
+console.timeEnd("希尔排序"); // 希尔排序: 9.881ms

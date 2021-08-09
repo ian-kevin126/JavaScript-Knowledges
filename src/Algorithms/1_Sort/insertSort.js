@@ -15,7 +15,7 @@
  *
  */
 
-const { shortArray } = require('../data')
+const { shortArray } = require("../data");
 
 /**
  * 插入排序
@@ -23,76 +23,95 @@ const { shortArray } = require('../data')
  * @returns
  */
 const insertSort = (arr) => {
-  const array = [...arr]
-  const len = array.length
-  let cur, prevIdx
+  const array = [...arr];
+  const len = array.length;
+  let cur, prevIdx;
   if (len < 2) {
-    return array
+    return array;
   }
   // 从第二个元素开始遍历数组
   for (let i = 1; i < len; i++) {
     // 将当前元素作为插入元素
-    cur = array[i]
+    cur = array[i];
     // 插入元素的前一个元素的下标，遍历的起始位置
-    prevIdx = i - 1
+    prevIdx = i - 1;
     // 遍历插入元素之前的元素
     while (prevIdx >= 0 && array[prevIdx] > cur) {
       // 如果遍历的元素比插入元素大，就将遍历到的这个元素往后移动一位，给插入元素让出位置
-      array[prevIdx + 1] = array[prevIdx]
+      array[prevIdx + 1] = array[prevIdx];
       // 指针减一，继续往前遍历
-      prevIdx--
+      prevIdx--;
     }
     // 等到插入元素找到自己的位置之后，将其放回到数组中
-    array[prevIdx + 1] = cur
+    array[prevIdx + 1] = cur;
   }
-  return array
-}
+  return array;
+};
 
 const insertSortCopy = (arr) => {
-  const array = [...arr]
-  const len = array.length
-  let cur, prevIdx
+  const array = [...arr];
+  const len = array.length;
+  let cur, prevIdx;
   if (len < 2) {
-    return array
+    return array;
   }
   // 从第二个元素开始遍历数组
   for (let i = 1; i < len; i++) {
     // 将当前元素当作是插入元素
-    cur = array[i]
+    cur = array[i];
     // 插入元素的前一个元素的下标
-    prevIdx = i - 1
+    prevIdx = i - 1;
     // 遍历插入元素之前的元素
     while (prevIdx >= 0 && array[prevIdx] > cur) {
       // 如果当前元素比遍历的元素小，就将遍历元素向后移动一位，给插入元素腾出位置
-      array[prevIdx + 1] = array[prevIdx]
+      array[prevIdx + 1] = array[prevIdx];
       // 指针减一，继续往前遍历和比较，直到找到比插入元素小的元素终止
-      prevIdx--
+      prevIdx--;
     }
     // 遍历插入元素之前的元素之后，就会找到插入元素该插入的位置，由于prevIdx在循环中减一，这里就需要加一
-    array[prevIdx + 1] = cur
+    array[prevIdx + 1] = cur;
   }
-  return array
-}
+  return array;
+};
 
 const insertSortCopy1 = (arr) => {
-  const array = [...arr]
-  const len = array.length
-  let cur, prevIdx
+  const array = [...arr];
+  const len = array.length;
+  let cur, prevIdx;
   if (len < 2) {
-    return array
+    return array;
   }
   for (let i = 1; i < len; i++) {
-    cur = array[i]
-    prevIdx = i - 1
+    cur = array[i];
+    prevIdx = i - 1;
     while (prevIdx >= 0 && array[prevIdx] > cur) {
-      array[prevIdx + 1] = array[prevIdx]
-      prevIdx--
+      array[prevIdx + 1] = array[prevIdx];
+      prevIdx--;
     }
-    array[prevIdx + 1] = cur
+    array[prevIdx + 1] = cur;
   }
-  return array
-}
+  return array;
+};
 
-console.time('插入排序')
-console.log(insertSortCopy1(shortArray))
-console.timeEnd('插入排序') // 插入排序: 0.964111328125 ms
+const insertSort1 = (arr) => {
+  const array = [...arr];
+  const len = array.length;
+  let prevIndex, current;
+  if (len < 2) {
+    return array;
+  }
+  for (let i = 1; i < len; i++) {
+    current = array[i];
+    prevIndex = i - 1;
+    while (prevIndex >= 0 && array[prevIndex] > current) {
+      array[prevIndex + 1] = array[prevIndex];
+      prevIndex--;
+    }
+    array[prevIndex + 1] = current;
+  }
+  return array;
+};
+
+console.time("插入排序");
+console.log(insertSort1(shortArray));
+console.timeEnd("插入排序"); // 插入排序: 0.964111328125 ms

@@ -15,51 +15,67 @@
  * https://juejin.cn/post/6932482325159067656
  */
 
-const { shortArray } = require('../data')
+const { shortArray } = require("../data");
 
 const selectSort = (arr) => {
-  const array = [...arr]
-  const len = array.length
-  let minIndex
+  const array = [...arr];
+  const len = array.length;
+  let minIndex;
   if (len < 2) {
-    return array
+    return array;
   }
   // 遍历数组
   for (let i = 0; i < len; i++) {
     // 假设当前元素是最小值
-    minIndex = i
+    minIndex = i;
     // 再遍历当前元素后面的元素，找到“最后那个”最小值，注意，要遍历完整个数组才终止，
     // 只要发现比预设的minIndex值小的都将其下标换给minIndex。
     for (let j = i + 1; j < len; j++) {
       if (array[j] <= array[minIndex]) {
-        minIndex = j
+        minIndex = j;
       }
     }
     // 遍历完后，将找到的最小值放到最前面去
-    ;[array[i], array[minIndex]] = [array[minIndex], array[i]]
+    [array[i], array[minIndex]] = [array[minIndex], array[i]];
   }
-  return array
-}
+  return array;
+};
 
 const selectSortCopy = (arr) => {
-  const array = [...arr]
-  const len = array.length
-  let minIndex
+  const array = [...arr];
+  const len = array.length;
+  let minIndex;
   if (len < 2) {
-    return array
+    return array;
   }
   for (let i = 0; i < len; i++) {
-    minIndex = i
+    minIndex = i;
     for (let j = i; j < len; j++) {
       if (array[minIndex] > array[j]) {
-        minIndex = j
+        minIndex = j;
       }
     }
-    ;[array[minIndex], array[i]] = [array[i], array[minIndex]]
+    [array[minIndex], array[i]] = [array[i], array[minIndex]];
   }
-  return array
-}
+  return array;
+};
 
-console.time('选择排序')
-console.log(selectSortCopy(shortArray))
-console.timeEnd('选择排序') // 插入排序: 0.964111328125 ms
+const selectSort1 = (arr) => {
+  const array = [...arr];
+  const len = array.length;
+  let minIndex;
+  for (let i = 0; i < len; i++) {
+    minIndex = i;
+    for (let j = i; j < len; j++) {
+      if (array[j] < array[minIndex]) {
+        minIndex = j;
+      }
+    }
+    [array[i], array[minIndex]] = [array[minIndex], array[i]];
+  }
+  return array;
+};
+
+console.time("选择排序");
+console.log(selectSort1(shortArray));
+console.timeEnd("选择排序"); // 插入排序: 0.964111328125 ms
