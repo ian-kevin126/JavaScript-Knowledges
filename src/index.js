@@ -1,1 +1,1 @@
-import "./Algorithms/1_Sort/shellSort";
+import "./Algorithms/1_Sort/quickSort";
