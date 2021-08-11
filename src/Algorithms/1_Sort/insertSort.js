@@ -49,6 +49,26 @@ const insertSort = (arr) => {
   return array;
 };
 
+Array.prototype.insertionSort = function () {
+  // 从第一个位置开始向前比较
+  for (let i = 1; i < this.length; i++) {
+    // 当前元素
+    const temp = this[i];
+    let j = i;
+    while (j > 0) {
+      if (this[j - 1] > temp) {
+        this[j] = this[j - 1];
+      } else {
+        break;
+      }
+      j -= 1;
+    }
+    this[j] = temp;
+  }
+};
+shortArray.insertionSort();
+console.log("121112", shortArray); // [0, 1, 2, 4, 5, 5, 6, 7, 9, 21, 34, 57, 78, 89, 89, 100, 123, 221, 453, 657]
+
 const insertSortCopy = (arr) => {
   const array = [...arr];
   const len = array.length;

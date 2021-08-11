@@ -38,13 +38,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
     }),
-    new CopyWebpackPlugin([
-      {
-        from: "static",
-        to: "static",
-      },
-    ]),
-    new webpack.HotModuleReplacementPlugin(),
   ],
   stats: {
     children: false,

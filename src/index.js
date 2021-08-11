@@ -1,1 +1,1 @@
-import "./Algorithms/1_Sort/quickSort";
+import "./Algorithms/1_Sort/mergeSort";

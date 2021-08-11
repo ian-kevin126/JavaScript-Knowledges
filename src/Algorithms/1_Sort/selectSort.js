@@ -37,7 +37,9 @@ const selectSort = (arr) => {
       }
     }
     // 遍历完后，将找到的最小值放到最前面去
-    [array[i], array[minIndex]] = [array[minIndex], array[i]];
+    if (minIndex !== i) {
+      [array[i], array[minIndex]] = [array[minIndex], array[i]];
+    }
   }
   return array;
 };
@@ -56,7 +58,9 @@ const selectSortCopy = (arr) => {
         minIndex = j;
       }
     }
-    [array[minIndex], array[i]] = [array[i], array[minIndex]];
+    if (minIndex !== i) {
+      [array[minIndex], array[i]] = [array[i], array[minIndex]];
+    }
   }
   return array;
 };
@@ -72,7 +76,9 @@ const selectSort1 = (arr) => {
         minIndex = j;
       }
     }
-    [array[i], array[minIndex]] = [array[minIndex], array[i]];
+    if (minIndex !== i) {
+      [array[i], array[minIndex]] = [array[minIndex], array[i]];
+    }
   }
   return array;
 };
