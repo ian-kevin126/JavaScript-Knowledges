@@ -13,7 +13,7 @@
  * 算法演示网站：https://visualgo.net/en
  */
 
-const { shortArray, longArray } = require("../data");
+const { shortArray, longArray } = require("../../data");
 
 /**
  * 基础版

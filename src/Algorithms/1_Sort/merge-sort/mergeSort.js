@@ -1,4 +1,4 @@
-import { shortArray, longArray } from "../data";
+import { shortArray, longArray } from "../../data";
 /**
  * 归并排序
  *

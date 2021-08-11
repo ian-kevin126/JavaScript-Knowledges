@@ -16,7 +16,7 @@
  *
  */
 
-const { shortArray } = require("../data");
+const { shortArray } = require("../../data");
 
 /**
  * 插入排序

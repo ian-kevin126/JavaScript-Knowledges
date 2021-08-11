@@ -16,7 +16,7 @@
  * 算法演示网站：https://visualgo.net/en
  */
 
-const { shortArray } = require("../data");
+const { shortArray } = require("../../data");
 
 const selectSort = (arr) => {
   const array = [...arr];
