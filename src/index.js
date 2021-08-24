@@ -1,1 +1,1 @@
-import "./Algorithms/1_Sort/mergeSort";
+import "./Practices/4_compose_inherit";
