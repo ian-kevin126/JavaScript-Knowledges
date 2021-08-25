@@ -1,1 +1,1 @@
-import "./Practices/4_compose_inherit";
+import "./Prototype/4_compose_inherit";
