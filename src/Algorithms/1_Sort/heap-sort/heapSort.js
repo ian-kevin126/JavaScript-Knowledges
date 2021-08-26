@@ -1,48 +1,142 @@
 /**
  * 堆排序
  *
- * 
+ *
  * https://juejin.cn/post/6932482325159067656#heading-4
  */
 
 const heapSort = function (arr) {
-  buildHeap(arr, arr.length - 1)
-  let heapSize = arr.length - 1 // 初始化堆的有效序列长度
+  buildHeap(arr, arr.length - 1);
+  let heapSize = arr.length - 1; // 初始化堆的有效序列长度
   for (let i = arr.length - 1; i > 1; i--) {
-    swap(arr, 1, i) // 交换堆顶元素与最后一个有效子元素
-    heapSize-- // 有效序列长度减 1
-    heapify(arr, heapSize, 1) // 堆化有效序列
+    swap(arr, 1, i); // 交换堆顶元素与最后一个有效子元素
+    heapSize--; // 有效序列长度减 1
+    heapify(arr, heapSize, 1); // 堆化有效序列
   }
-  return arr
-}
+  return arr;
+};
 
 // 构建大顶堆
 const buildHeap = function (items, heapSize) {
   // 从后往前并不是从序列的最后一个元素开始，而是从最后一个非叶子节点开始，这是因为，叶子节点没有子节点，不需要自上而下式堆化。
   // 最后一个子节点的父节点为 n/2 ，所以从 n/2 位置节点开始堆化
   for (let i = Math.floor(heapSize / 2); i >= 1; i--) {
-    heapify(items, heapSize, i)
+    heapify(items, heapSize, i);
   }
-}
+};
 // 堆化
 const heapify = function (arr, heapSize, i) {
   while (true) {
-    let maxIndex = i
+    let maxIndex = i;
     if (2 * i <= heapSize && arr[i] < arr[i * 2]) {
-      maxIndex = i * 2
+      maxIndex = i * 2;
     }
     if (2 * i + 1 <= heapSize && arr[maxIndex] < arr[i * 2 + 1]) {
-      maxIndex = i * 2 + 1
+      maxIndex = i * 2 + 1;
     }
-    if (maxIndex === i) break
-    swap(arr, i, maxIndex)
-    i = maxIndex
+    if (maxIndex === i) break;
+    swap(arr, i, maxIndex);
+    i = maxIndex;
   }
-}
+};
 
 // 交换工具函数
 const swap = function (arr, i, j) {
-  let temp = arr[i]
-  arr[i] = arr[j]
-  arr[j] = temp
+  let temp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = temp;
+};
+
+/**
+ * 堆排序
+ * @param {*} A
+ * @param {*} i
+ * @param {*} length
+ *
+ * 将 i 结点以下的堆整理为大顶堆，注意这一步实现的基础实际上是：
+ * 假设 结点 i 以下的子堆已经是一个大顶堆，shiftDown函数实现的
+ * 功能是实际上是：找到 结点 i 在包括结点 i 的堆中的正确位置。后面
+ * 将写一个 for 循环，从第一个非叶子结点开始，对每一个非叶子结点
+ * 都执行 shiftDown操作，所以就满足了结点 i 以下的子堆已经是一大
+ *
+ * https://segmentfault.com/a/1190000015487916
+ */
+
+//顶堆
+function shiftDown(A, i, length) {
+  let temp = A[i]; // 当前父节点
+  // j<length 的目的是对结点 i 以下的结点全部做顺序调整
+  for (let j = 2 * i + 1; j < length; j = 2 * j + 1) {
+    temp = A[i]; // 将 A[i] 取出，整个过程相当于找到 A[i] 应处于的位置
+    if (j + 1 < length && A[j] < A[j + 1]) {
+      j++; // 找到两个孩子中较大的一个，再与父节点比较
+    }
+    if (temp < A[j]) {
+      swap(A, i, j); // 如果父节点小于子节点:交换；否则跳出
+      i = j; // 交换后，temp 的下标变为 j
+    } else {
+      break;
+    }
+  }
 }
+
+// 堆排序
+function heapSort(A) {
+  // 初始化大顶堆，从第一个非叶子结点开始
+  for (let i = Math.floor(A.length / 2 - 1); i >= 0; i--) {
+    shiftDown(A, i, A.length);
+  }
+  // 排序，每一次for循环找出一个当前最大值，数组长度减一
+  for (let i = Math.floor(A.length - 1); i > 0; i--) {
+    swap(A, 0, i); // 根节点与最后一个节点交换
+    shiftDown(A, 0, i); // 从根节点开始调整，并且最后一个结点已经为当
+    // 前最大值，不需要再参与比较，所以第三个参数
+    // 为 i，即比较到最后一个结点前一个即可
+  }
+}
+
+let Arr = [4, 6, 8, 5, 9, 1, 2, 5, 3, 2];
+heapSort(Arr);
+alert(Arr);
+
+/**
+ * 堆排序
+ *
+ * https://zhuanlan.zhihu.com/p/89600623
+ */
+
+const maxHeapify = function (A, heapSize, i) {
+  let l = i * 2 + 1;
+  let r = i * 2 + 2;
+  let largest = i;
+  if (l < heapSize && A[l] > A[i]) {
+    largest = l;
+  }
+  if (r < heapSize && A[r] > A[largest]) {
+    largest = r;
+  }
+  if (largest !== i) {
+    swap(A, i, largest);
+    maxHeapify(A, heapSize, largest);
+  }
+  return A;
+};
+
+const buildMaxHeap = function (A) {
+  for (let i = Math.floor(A.length / 2) - 1; i >= 0; i--) {
+    maxHeapify(A, A.length, i);
+  }
+};
+
+const heapSort = function (A) {
+  buildMaxHeap(A);
+  A.heapSize = A.length;
+  for (let i = A.length - 1; i >= 0; i--) {
+    swap(A, 0, i);
+    A.heapSize--;
+    maxHeapify(A, A.heapSize, 0);
+  }
+  return A;
+};
+
+heapSort([3, 4, 5, 1, 5, 7, 2]); // (7) [1, 2, 3, 4, 5, 5, 7, heapSize: 0]
