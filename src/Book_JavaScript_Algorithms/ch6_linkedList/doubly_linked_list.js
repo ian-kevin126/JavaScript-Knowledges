@@ -1,27 +1,40 @@
-import { defaultEquals } from "../util";
-import LinkedList from "./linked-list";
-import { DoublyNode } from "./models/linked-list-models";
+class DoublyNode {
+  constructor(element, next, prev) {
+    this.element = element;
+    this.next = next;
+    this.prev = prev;
+  }
+}
 
-export default class DoublyLinkedList extends LinkedList {
-  constructor(equalsFn = defaultEquals) {
-    super(equalsFn);
-    this.tail = undefined;
+class DoublyLinkedList {
+  constructor() {
+    this.count = 0;
+    this.head = null;
+    this.tail = null;
   }
 
   push(element) {
     const node = new DoublyNode(element);
     if (this.head == null) {
       this.head = node;
-      this.tail = node; // NEW
+      this.tail = node;
     } else {
-      // 将尾节点指向新添加的节点
       this.tail.next = node;
-      // 新节点的前置指针指向尾节点
       node.prev = this.tail;
-      // 再将当前新添加节点变成新的尾节点
       this.tail = node;
     }
     this.count++;
+  }
+
+  getElementAt(index) {
+    if (index >= 0 && index <= this.count) {
+      let current = this.head;
+      for (let i = 0; i < index && current != null; i++) {
+        current = current.next;
+      }
+      return current;
+    }
+    return undefined;
   }
 
   insert(element, index) {
@@ -30,28 +43,24 @@ export default class DoublyLinkedList extends LinkedList {
       let current = this.head;
       if (index === 0) {
         if (this.head == null) {
-          // 从头部插入
           this.head = node;
-          this.tail = node; // NEW
+          this.tail = node;
         } else {
           node.next = this.head;
-          this.head.prev = node; // NEW
+          this.head.prev = node;
           this.head = node;
         }
-      } else if (index === this.count) {
-        // 从尾部插入
-        current = this.tail;
-        current.next = node;
-        node.prev = current;
+      } else if (index === this.count - 1) {
+        this.tail.next = node;
+        node.prev = this.tail;
         this.tail = node;
       } else {
-        // 从中间插入
         const previous = this.getElementAt(index - 1);
         current = previous.next;
-        node.next = current;
         previous.next = node;
-        current.prev = node; // NEW
-        node.prev = previous; // NEW
+        node.next = current;
+        current.prev = node;
+        node.prev = previous;
       }
       this.count++;
       return true;
@@ -60,28 +69,24 @@ export default class DoublyLinkedList extends LinkedList {
   }
 
   removeAt(index) {
-    if (index >= 0 && index < this.count) {
+    if (index >= 0 && index <= this.count) {
       let current = this.head;
       if (index === 0) {
         this.head = this.head.next;
-        // if there is only one item, then we update tail as well //NEW
         if (this.count === 1) {
-          // {2}
           this.tail = undefined;
         } else {
           this.head.prev = undefined;
         }
       } else if (index === this.count - 1) {
-        // last item //NEW
         current = this.tail;
         this.tail = current.prev;
         this.tail.next = undefined;
       } else {
         current = this.getElementAt(index);
         const previous = current.prev;
-        // link previous with current's next - skip it to remove
         previous.next = current.next;
-        current.next.prev = previous; // NEW
+        current.next.prev = previous;
       }
       this.count--;
       return current.element;
@@ -92,8 +97,8 @@ export default class DoublyLinkedList extends LinkedList {
   indexOf(element) {
     let current = this.head;
     let index = 0;
-    while (current != null) {
-      if (this.equalsFn(element, current.element)) {
+    while (index < this.count && current != null) {
+      if (current.element === element) {
         return index;
       }
       index++;
@@ -111,8 +116,17 @@ export default class DoublyLinkedList extends LinkedList {
   }
 
   clear() {
-    super.clear();
-    this.tail = undefined;
+    this.count = 0;
+    this.head = null;
+    this.tail = null;
+  }
+
+  size() {
+    return this.count;
+  }
+
+  isEmpty() {
+    return this.count === 0;
   }
 
   toString() {
@@ -141,3 +155,20 @@ export default class DoublyLinkedList extends LinkedList {
     return objString;
   }
 }
+
+const doubly_linked_list = new DoublyLinkedList();
+doubly_linked_list.push(1);
+doubly_linked_list.push(2);
+doubly_linked_list.push(3);
+doubly_linked_list.push(4);
+doubly_linked_list.push(5);
+doubly_linked_list.push(6);
+doubly_linked_list.push(7);
+doubly_linked_list.push(8);
+console.log(doubly_linked_list.toString()); // 1,2,3,4,5,6,7,8
+doubly_linked_list.insert(9, 3);
+console.log(doubly_linked_list.toString()); // 1,2,3,9,4,5,6,7,8
+doubly_linked_list.removeAt(3);
+console.log(doubly_linked_list.toString()); // 1,2,3,4,5,6,7,8
+console.log(doubly_linked_list.indexOf(8)); // 7
+console.log(doubly_linked_list.inverseToString()); // 8,7,6,5,4,3,2,1
