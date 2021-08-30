@@ -70,3 +70,8 @@ export default class CircularLinkedList extends LinkedList {
     return undefined;
   }
 }
+
+const linked_list = new CircularLinkedList();
+console.log(linked_list.toString());
+linked_list.removeAt(0);
+console.log(linked_list.toString());

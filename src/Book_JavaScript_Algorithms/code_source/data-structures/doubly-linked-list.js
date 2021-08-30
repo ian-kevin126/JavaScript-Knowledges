@@ -141,3 +141,16 @@ export default class DoublyLinkedList extends LinkedList {
     return objString;
   }
 }
+
+const double_linked_list = new DoublyLinkedList();
+double_linked_list.push(0);
+double_linked_list.push(1);
+double_linked_list.push(2);
+double_linked_list.push(3);
+double_linked_list.push(4);
+double_linked_list.push(5);
+double_linked_list.push(6);
+double_linked_list.push(7);
+double_linked_list.push(8);
+
+console.log(double_linked_list.toString());

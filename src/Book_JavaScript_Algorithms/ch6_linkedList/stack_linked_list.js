@@ -1,3 +1,7 @@
+/**
+ * 用链表来实现栈数据结构
+ */
+
 class DoublyNode {
   constructor(element, next, prev) {
     this.element = element;
@@ -51,7 +55,6 @@ class DoublyLinkedList {
           this.head.prev = node;
           this.head = node;
         }
-        // 注意这个地方，在尾部插入，应该是this.count而不是this.count - 1
       } else if (index === this.count) {
         this.tail.next = node;
         node.prev = this.tail;
@@ -175,7 +178,63 @@ doubly_linked_list1.insert(7, 7);
 doubly_linked_list1.insert(7, 8);
 doubly_linked_list1.insert(9, 7);
 doubly_linked_list1.insert(1, 0);
-console.log("从头到尾输出：", doubly_linked_list1.toString()); // 从头到尾输出： 0, 1, 2, 3, 4, 5, 6, 9, 7, 7
+console.log("从头到尾输出：", doubly_linked_list1.toString()); // 从头到尾输出： 1, 0, 1, 2, 3, 4, 5, 6, 9, 7, 7
 doubly_linked_list1.remove(1);
 doubly_linked_list1.removeAt(0);
 console.log("从头到尾输出：", doubly_linked_list1.toString()); // 从头到尾输出： 1, 2, 3, 4, 5, 6, 9, 7, 7
+
+/**
+ * 创建栈数据结构
+ */
+class StackLinkedList {
+  constructor() {
+    this.items = new DoublyLinkedList();
+  }
+
+  push(element) {
+    this.items.push(element);
+  }
+
+  pop() {
+    if (this.isEmpty()) {
+      return undefined;
+    }
+    return this.items.removeAt(this.size() - 1);
+  }
+
+  peek() {
+    if (this.isEmpty()) {
+      return undefined;
+    }
+    return this.items.getElementAt(this.size() - 1).element;
+  }
+
+  isEmpty() {
+    return this.items.isEmpty();
+  }
+
+  size() {
+    return this.items.size();
+  }
+
+  clear() {
+    this.items.clear();
+  }
+
+  toString() {
+    return this.items.toString();
+  }
+}
+
+const _stack = new StackLinkedList();
+_stack.push(0);
+_stack.push(1);
+_stack.push(2);
+_stack.push(3);
+_stack.push(4);
+_stack.push(5);
+_stack.push(6);
+console.log(_stack.toString()); // 0, 1, 2, 3, 4, 5, 6
+console.log(_stack.pop()); // 6
+console.log(_stack.peek()); // 5
+console.log(_stack.toString()); // 0, 1, 2, 3, 4, 5
