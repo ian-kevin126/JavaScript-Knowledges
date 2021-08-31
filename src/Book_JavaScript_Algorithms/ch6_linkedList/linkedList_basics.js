@@ -83,7 +83,7 @@ class LinkedList {
       this.count--;
       return current.element;
     }
-    return false;
+    return undefined;
   }
 
   remove(element) {
