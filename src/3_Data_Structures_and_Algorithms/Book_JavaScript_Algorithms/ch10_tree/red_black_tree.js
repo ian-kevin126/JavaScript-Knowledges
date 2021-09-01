@@ -1,3 +1,20 @@
+/**
+ * 红黑树：是一种自平衡的二叉查找树，它主要是为了解决不平衡的二叉查找树效率不高的缺点。红黑树保证了从根到叶子节点的最长路径不会超过最短路径的两倍。
+ *
+ * 树在前端的重要性不言而喻，随处可见，vdom、dom树、render树，有时候前后端交互中也会收到具有递归性质的tree结构数据，需要注意一点的是，ES6中虽然出现
+ * 了Set和Map数据结构，但其实现和其他语言（例如Java）的底层实现不同，在Chrome的V8中其实现基于Hash，利用空间换时间的思想，毕竟查找起来Hash是O(1)而
+ * 红黑树是O(lgN)。但是红黑树作为一种经典且重要的数据结构，综合优势比较好，curd操作以及空间消耗在大量数据下优势就体现出来了。
+ *
+ * 红黑树的具体规则：
+ * - 1，节点是红色或黑色
+ * - 2，根节点是黑色
+ * - 3，每个叶子节点都是黑色的空节点（NIL节点）
+ * - 4，每个红色节点的两个子节点都是黑色（从每个叶子节点到根节点的所有路径上不能有两个连续的红色节点）
+ * - 5，从任意节点到其每个叶子节点的所有路径都包含相同数目的黑色节点
+ *
+ * https://mp.weixin.qq.com/s?__biz=MzI1MTIzMzI2MA==&mid=2650561574&idx=1&sn=edab54460a85c9686e0ec0f5d178907c&chksm=f1feeaa5c68963b3689d23db68ab14a9c50a33dd5e9244a74d7765321b42af7ec14abfadf9ac&scene=21#wechat_redirect
+ * https://cloud.tencent.com/developer/article/1101517
+ */
 function defaultCompare(a, b) {
   if (a === b) {
     return Compare.EQUALS;
@@ -9,6 +26,11 @@ const Compare = {
   LESS_THAN: -1,
   BIGGER_THAN: 1,
   EQUALS: 0,
+};
+
+const Colors = {
+  RED: "RED",
+  BLACK: "BLACK",
 };
 
 class Node {
