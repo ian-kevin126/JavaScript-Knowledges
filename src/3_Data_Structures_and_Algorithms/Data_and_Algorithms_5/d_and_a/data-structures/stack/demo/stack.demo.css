@@ -1,0 +1,60 @@
+.stackDemo .flexContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.stackDemo .flexContainer .leftColumn {
+  margin-right: 2rem;
+}
+
+.stackDemo .flexContainer .rightColumn {
+  flex-shrink: 0;
+}
+
+.stackDemo .stackContainer {
+  width: 17rem;
+  border: 1px solid #071a32;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.stackDemo h2 {
+  margin-top: 0;
+}
+
+.stackDemo .item {
+  padding: 1rem;
+  margin-bottom: 0.25rem;
+  border: 1px solid #071a32;
+  border-radius: 0.25rem;
+  background: #f2f2f2;
+  color: #071a32;
+  text-align: center;
+  word-break: break-word;
+  word-wrap: break-word;
+  min-width: 0;
+}
+
+.stackDemo .item.alt {
+  background: #ccc;
+}
+
+.stackDemo .newItemTextInput {
+  margin-right: 0.5rem;
+}
+
+.stackDemo button {
+  margin-bottom: 0.5rem;
+}
+
+.stackDemo .topOfStack {
+  border-bottom: 1px solid #071a32;
+  font-weight: bold;
+}
+
+.stackDemo .bottomOfStack {
+  border-top: 1px solid #071a32;
+  font-weight: bold;
+}

@@ -1,0 +1,28 @@
+.sortComparisonDemo button,
+.sortComparisonDemo label {
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.sortComparisonDemo label span {
+  margin-right: 1rem;
+}
+
+.sortComparisonDemo h3 {
+  display: inline-block;
+  margin: 0.5rem 0;
+}
+
+.sortComparisonDemo .arrayData {
+  margin: 1rem 0;
+}
+
+.sortComparisonDemo .arrayData .elements {
+  white-space: nowrap;
+  overflow-x: scroll;
+  border: 1px solid #071a32;
+  padding: 0.5rem;
+  background: #f6f6f6;
+  border-radius: 0.25rem;
+  margin-top: 0.55rem;
+}

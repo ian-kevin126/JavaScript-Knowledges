@@ -1,0 +1,62 @@
+.priorityQueueDemo .flexContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.priorityQueueDemo .flexContainer .leftColumn {
+  margin-right: 2rem;
+}
+
+.priorityQueueDemo .flexContainer .rightColumn {
+  flex-shrink: 0;
+}
+
+.priorityQueueDemo .priorityQueueContainer {
+  width: 17rem;
+  border: 1px solid #071a32;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.priorityQueueDemo h2 {
+  margin-top: 0;
+}
+
+.priorityQueueDemo .item {
+  padding: 1rem;
+  margin-bottom: 0.25rem;
+  border: 1px solid #071a32;
+  border-radius: 0.25rem;
+  background: #f2f2f2;
+  color: #071a32;
+  text-align: center;
+  word-break: break-word;
+  word-wrap: break-word;
+  min-width: 0;
+}
+
+.priorityQueueDemo .item.alt {
+  background: #ccc;
+}
+
+.priorityQueueDemo button,
+.priorityQueueDemo label {
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.priorityQueueDemo label span {
+  margin-right: 1rem;
+}
+
+.priorityQueueDemo .frontOfPriorityQueue {
+  border-bottom: 1px solid #071a32;
+  font-weight: bold;
+}
+
+.priorityQueueDemo .endOfPriorityQueue {
+  border-top: 1px solid #071a32;
+  font-weight: bold;
+}

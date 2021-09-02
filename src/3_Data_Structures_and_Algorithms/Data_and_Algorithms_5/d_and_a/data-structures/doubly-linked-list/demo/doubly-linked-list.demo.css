@@ -1,0 +1,52 @@
+.doublyLinkedListDemo .flexContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.doublyLinkedListDemo .flexContainer .leftColumn {
+  margin-right: 2rem;
+}
+
+.doublyLinkedListDemo .flexContainer .rightColumn {
+  flex-shrink: 0;
+}
+
+.doublyLinkedListDemo .doublyLinkedListContainer {
+  width: 17rem;
+  border: 1px solid #071a32;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.doublyLinkedListDemo h2 {
+  margin-top: 0;
+}
+
+.doublyLinkedListDemo .node {
+  padding: 1rem;
+  margin-bottom: 0.25rem;
+  border: 1px solid #071a32;
+  border-radius: 0.25rem;
+  background: #f2f2f2;
+  color: #071a32;
+  text-align: center;
+  word-break: break-word;
+  word-wrap: break-word;
+  min-width: 0;
+}
+
+.doublyLinkedListDemo button,
+.doublyLinkedListDemo label {
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.doublyLinkedListDemo label span {
+  margin-right: 1rem;
+}
+
+.doublyLinkedListDemo fieldset {
+  margin-bottom: 0.5rem;
+}

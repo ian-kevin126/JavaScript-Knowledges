@@ -1,0 +1,51 @@
+.setDemo .flexContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.setDemo .flexContainer .leftColumn {
+  margin-right: 2rem;
+}
+
+.setDemo .flexContainer .rightColumn {
+  flex-shrink: 0;
+}
+
+.setDemo .setContainer {
+  width: 17rem;
+  border: 1px solid #071a32;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.setDemo h2 {
+  margin-top: 0;
+}
+
+.setDemo .item {
+  padding: 1rem;
+  margin-bottom: 0.25rem;
+  border: 1px solid #071a32;
+  border-radius: 0.25rem;
+  background: #f2f2f2;
+  color: #071a32;
+  text-align: center;
+  word-break: break-word;
+  word-wrap: break-word;
+  min-width: 0;
+}
+
+.setDemo .item.alt {
+  background: #ccc;
+}
+
+.setDemo .newItemTextInput,
+.setDemo .removeItemTextInput {
+  margin-right: 0.5rem;
+}
+
+.setDemo button {
+  margin-bottom: 0.5rem;
+}

@@ -1,0 +1,60 @@
+.queueDemo .flexContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.queueDemo .flexContainer .leftColumn {
+  margin-right: 2rem;
+}
+
+.queueDemo .flexContainer .rightColumn {
+  flex-shrink: 0;
+}
+
+.queueDemo .queueContainer {
+  width: 17rem;
+  border: 1px solid #071a32;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.queueDemo h2 {
+  margin-top: 0;
+}
+
+.queueDemo .item {
+  padding: 1rem;
+  margin-bottom: 0.25rem;
+  border: 1px solid #071a32;
+  border-radius: 0.25rem;
+  background: #f2f2f2;
+  color: #071a32;
+  text-align: center;
+  word-break: break-word;
+  word-wrap: break-word;
+  min-width: 0;
+}
+
+.queueDemo .item.alt {
+  background: #ccc;
+}
+
+.queueDemo .newItemTextInput {
+  margin-right: 0.5rem;
+}
+
+.queueDemo button {
+  margin-bottom: 0.5rem;
+}
+
+.queueDemo .frontOfQueue {
+  border-bottom: 1px solid #071a32;
+  font-weight: bold;
+}
+
+.queueDemo .endOfQueue {
+  border-top: 1px solid #071a32;
+  font-weight: bold;
+}
