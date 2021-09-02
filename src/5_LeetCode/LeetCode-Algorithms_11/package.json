@@ -1,0 +1,29 @@
+{
+  "name": "leetcode-traning",
+  "version": "1.0.0",
+  "description": "leetcode训练代码库",
+  "scripts": {
+    "deploy": "node syncReadme.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gisonyeung/leetcode-traning.git"
+  },
+  "keywords": [
+    "leetcode"
+  ],
+  "author": "gisonyeung <gisonyeung@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gisonyeung/leetcode-traning/issues"
+  },
+  "homepage": "https://github.com/gisonyeung/leetcode-traning#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "eslint": "^6.2.1"
+  },
+  "devDependencies": {
+    "husky": "^5.0.9",
+    "pinst": "^2.1.1"
+  }
+}
