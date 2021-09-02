@@ -1,0 +1,16 @@
+{
+	"name": "scaffer",
+	"version": "1.0.0",
+	"description": "Scaffolding tool for Problems - Web Scrapper for leetcode",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"rootPath": "../../",
+	"author": "",
+	"license": "MIT",
+	"dependencies": {
+		"puppeteer": "^1.13.0"
+	}
+}
