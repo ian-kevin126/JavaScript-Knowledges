@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 普通递归
+      // function fibo(n) {
+      //   if (n === 0) return 0
+      //   if (n === 1) return 1
+      //   return fibo(n - 1) + fibo(n - 2)
+      // }
+
+      // 使用数据存储之前计算结果，以复用
+      // function fibo(n) {
+      //   if (n === 0) return 0
+      //   if (n === 1) return 1
+      //   let arr = [0, 1]
+      //   for (let i = 2; i <= n; i++) {
+      //     arr[i] = arr[i - 1] + arr[i - 2]
+      //   }
+      //   return arr[n]
+      // }
+
+      // 减少空间，用变量替换数组
+      // function fibo(n) {
+      //   if (n === 0) return 0
+      //   if (n === 1) return 1
+      //   let res = 0
+      //   let a = 0
+      //   let b = 1
+      //   for (let i = 2; i <= n; i++) {
+      //     res = a + b
+      //     a = b
+      //     b = res
+      //   }
+      //   return res
+      // }
+
+      // 还可以更简洁，再节省一个变量
+      function fibo(n) {
+        if (n === 0) return 0
+        if (n === 1) return 1
+        let a = 0
+        let b = 1
+        for (let i = 2; i <= n; i++) {
+          b = a + b
+          a = b - a
+        }
+        return b
+      }
+      console.log(fibo(20));
+    </script>
+  </body>
+</html>
