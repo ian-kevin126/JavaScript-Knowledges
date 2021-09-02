@@ -1,0 +1,1 @@
+const divisorGame = N => !(N%2);

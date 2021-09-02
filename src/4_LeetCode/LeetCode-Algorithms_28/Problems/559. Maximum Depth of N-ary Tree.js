@@ -1,0 +1,1 @@
+var maxDepth = root => root && root.children.reduce((res, node) => Math.max(res, maxDepth(node)),0) + 1;
