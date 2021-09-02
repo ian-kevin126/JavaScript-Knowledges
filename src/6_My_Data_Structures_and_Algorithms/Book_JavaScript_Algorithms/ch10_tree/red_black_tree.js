@@ -10,7 +10,8 @@
  * - 2，根节点是黑色
  * - 3，每个叶子节点都是黑色的空节点（NIL节点）
  * - 4，每个红色节点的两个子节点都是黑色（从每个叶子节点到根节点的所有路径上不能有两个连续的红色节点）
- * - 5，从任意节点到其每个叶子节点的所有路径都包含相同数目的黑色节点
+ * - 5，不能有两个响铃的红色节点，一个红节点不能有红的父节点或子节点
+ * - 6，从任意节点到其每个叶子节点的所有路径都包含相同数目的黑色节点
  *
  * https://mp.weixin.qq.com/s?__biz=MzI1MTIzMzI2MA==&mid=2650561574&idx=1&sn=edab54460a85c9686e0ec0f5d178907c&chksm=f1feeaa5c68963b3689d23db68ab14a9c50a33dd5e9244a74d7765321b42af7ec14abfadf9ac&scene=21#wechat_redirect
  * https://cloud.tencent.com/developer/article/1101517
@@ -215,9 +216,12 @@ class RedBlackTree extends BinarySearchTree {
 
   insert(key) {
     if (this.root == null) {
+      // 如果树是空的，那么我们需要创建一个红黑树节点
       this.root = new RedBlackNode(key);
+      // 默认情况下创建的节点是红色的，但是为了满足红黑树的根节点是黑色这个规则，我们将这个节点的颜色置为黑色
       this.root.color = Colors.BLACK;
     } else {
+      // 如果树不是空的，那就在正确的位置上插入节点，这种情况下，insertNode方法需要返回新插入的节点，这样我们可以验证插入后，红黑树的规则是否得到了满足
       const newNode = this.inserNode(this.root, key);
       this.fixTreeProperties(newNode);
     }
@@ -227,8 +231,8 @@ class RedBlackTree extends BinarySearchTree {
     if (this.compareFn(key, node.key) === Compare.LESS_THAN) {
       if (node.left == null) {
         node.left = new RedBlackNode(key);
-        node.left.parent = node;
-        return node.left;
+        node.left.parent = node; // 保存指向被插入节点父节点的引用
+        return node.left; // 返回节点的应用，用于在后面验证树的属性
       } else {
         return this.insertNode(node.left, key);
       }
@@ -241,6 +245,12 @@ class RedBlackTree extends BinarySearchTree {
     }
   }
 
+  /**
+   * 规则验证：在插入节点后验证红黑树的属性是否还是平衡的以满足它的所有规则，需要使用到两个概念：重新填色和旋转。
+   *
+   * 在向树中插入节点后，新节点将会是红色。这不会影响黑色节点数量的规则（规则6），但是会影响规则5：两个后代红色节点不能共存。如果插入节点的父节点是黑色的
+   * 那没问题，但是如果插入节点的父节点是红色的，那么会违反规则5.要解决这个冲突，我们只需要改变父节点、祖父节点和叔节点（因为我们同样改变了父节点的颜色）。
+   */
   fixTreeProperties(node) {
     while (
       node &&
@@ -248,39 +258,48 @@ class RedBlackTree extends BinarySearchTree {
       node.parent.color.isRed() &&
       node.color !== Colors.BLACK
     ) {
+      // 为了保证代码的可读性，我们要保存父节点和祖父节点的引用
       let parent = node.parent;
       const grandParent = parent.parent;
+      // 情形A：父节点是左侧子节点
       if (grandParent && grandParent.left === parent) {
         const uncle = grandParent.right;
+        // 情形1A：叔节点也是红色——只需要重新填色
         if (uncle && uncle.color === Colors.RED) {
           grandParent.color = Colors.RED;
           parent.color = Colors.BLACK;
           uncle.color = Colors.BLACK;
           node = grandParent;
         } else {
+          // 情形2A：节点是右侧子节点——左旋转
           if (node === parent.right) {
             this.rotationRR(parent);
             node = parent;
             parent = node.parent;
           }
+          // 情形3A：节点是左侧子节点——右旋转
           this.rotationLL(grandParent);
           parent.color = Colors.BLACK;
           grandParent.color = Colors.RED;
           node = parent;
         }
       } else {
+        // 情形B：父节点是右侧子节点
         const uncle = grandParent.left;
+        // 情形1B：叔节点是红色，只需要重新填色
         if (uncle && uncle.color === Colors.RED) {
           grandParent.color = Colors.RED;
           parent.color = Colors.BLACK;
           uncle.color = Colors.BLACK;
           node = grandParent;
         } else {
+          // 情形2B：节点是左侧子节点——右旋转
           if (node === parent.left) {
             this.rotationLL(parent);
             node = parent;
             parent = node.parent;
           }
+          // 情形3B：节点是右侧子节点——左旋转
           this.rotationRR(grandParent);
           parent.color = Colors.BLACK;
           grandParent.color = Colors.RED;
@@ -288,9 +307,11 @@ class RedBlackTree extends BinarySearchTree {
         }
       }
     }
+    // 为了保证根节点的颜色始终是黑色（规则 2），我们在代码最后设置根节点的颜色
     this.root.color = Colors.BLACK;
   }
 
+  // 左-左（LL）：父节点是祖父节点的左侧子节点，节点是父节点的左侧子节点（情形 3A）。
   rotationLL(node) {
     const tmp = node.left;
     node.left = tmp.right;
@@ -311,6 +332,7 @@ class RedBlackTree extends BinarySearchTree {
     node.parent = tmp;
   }
 
+  // 右-右（RR）：父节点是祖父节点的右侧子节点，节点是父节点的右侧子节点（情形 2A）。
   rotationRR(node) {
     const tmp = node.right;
     node.right = tmp.left;
