@@ -2,7 +2,7 @@
  * 队列：遵循先进先出（FIFO）原则的一组有序的项，队列在尾部添加新元素，在队首移除元素。现实生活中的例子就是排队。
  *
  */
-class Queueu {
+export class Queue {
   constructor() {
     this.count = 0; // 队列的大小
     this.lowestCount = 0; // 由于我们将要从队列前端移除元素，同样需要一个变量来帮助我们追踪第一个元素
@@ -57,7 +57,7 @@ class Queueu {
   }
 }
 
-const queue = new Queueu();
+const queue = new Queue();
 queue.enqueue(0);
 queue.enqueue(1);
 queue.enqueue(2);
@@ -193,7 +193,7 @@ console.log(deque.toString()); // kevin,John,
  * 循环队列：击鼓传花游戏
  */
 function hotPotato(elementList, num) {
-  const queue = new Queueu();
+  const queue = new Queue();
   const elimitatedList = [];
 
   for (let i = 0; i < elementList.length; i++) {

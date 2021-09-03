@@ -5,32 +5,32 @@
 // 最简单的栈结构
 class Stack1 {
   constructor() {
-    this.items = []
+    this.items = [];
   }
 
   push(val) {
     // 入栈一个或多个元素
-    this.items.concat(val)
+    this.items.concat(val);
   }
 
   pop() {
-    return this.items.pop()
+    return this.items.pop();
   }
 
   peek() {
-    return this.items[this.items.length - 1]
+    return this.items[this.items.length - 1];
   }
 
   size() {
-    return this.items.length
+    return this.items.length;
   }
 
   isEmpty() {
-    return this.items.length === 0
+    return this.items.length === 0;
   }
 
   clear() {
-    this.items = []
+    this.items = [];
   }
 }
 
@@ -43,43 +43,43 @@ class Stack1 {
  */
 class Stack2 {
   constructor() {
-    this.count = 0
-    this.items = {}
+    this.count = 0;
+    this.items = {};
   }
 
   push(element) {
-    this.items[this.count] = element
-    this.count++
+    this.items[this.count] = element;
+    this.count++;
   }
 
   size() {
-    return this.count
+    return this.count;
   }
 
   isEmpty() {
-    return this.count === 0
+    return this.count === 0;
   }
 
   pop() {
     if (this.isEmpty()) {
-      return undefined
+      return undefined;
     }
-    this.count--
-    const result = this.items[this.count]
-    delete this.items[this.count]
-    return result
+    this.count--;
+    const result = this.items[this.count];
+    delete this.items[this.count];
+    return result;
   }
 
   peek() {
     if (this.isEmpty()) {
-      return undefined
+      return undefined;
     }
-    return this.items[this.count]
+    return this.items[this.count];
   }
 
   clear() {
-    this.items = {}
-    this.count = 0
+    this.items = {};
+    this.count = 0;
 
     // 或者
     // while (!this.isEmpty()) {
@@ -89,30 +89,30 @@ class Stack2 {
 
   toString() {
     if (this.isEmpty()) {
-      return ''
+      return "";
     }
 
-    let objString = ''
+    let objString = "";
     for (let i = 0; i < this.count; i++) {
-      objString += this.items[i]
+      objString += this.items[i];
     }
-    return objString
+    return objString;
   }
 }
 
-const _stack = new Stack2()
-_stack.push(0)
-_stack.push(1)
-_stack.push(2)
-_stack.push(3)
-_stack.push(4)
-_stack.push(5)
-_stack.push(6)
-_stack.push(7)
-_stack.push(8)
-_stack.push(9)
-_stack.pop()
-console.log(_stack.toString()) // 0123456789
+const _stack = new Stack2();
+_stack.push(0);
+_stack.push(1);
+_stack.push(2);
+_stack.push(3);
+_stack.push(4);
+_stack.push(5);
+_stack.push(6);
+_stack.push(7);
+_stack.push(8);
+_stack.push(9);
+_stack.pop();
+console.log(_stack.toString()); // 0123456789
 
 /**
  * 保护数据结构内部元素
@@ -121,45 +121,45 @@ console.log(_stack.toString()) // 0123456789
  *
  * 本章使用ES2015（ES6)语法创建了Stack类，它是基于原型的，尽管基于原型的类能节省内存空间并在扩展方法优于基于函数的类，但这种方式不能声明私有属性（变量）或方法。另外，在本例中，我们希望Stack类的用户只能访问我们在类中暴露的方法。
  */
-console.log(Object.getOwnPropertyNames(_stack)) // ['count', 'items']
-console.log(Object.keys(_stack)) // ['count', 'items']
+console.log(Object.getOwnPropertyNames(_stack)); // ['count', 'items']
+console.log(Object.keys(_stack)); // ['count', 'items']
 
 /**
  * 下面来看看其他使用JavaScript来实现私有属性的方法
  */
-const _items = Symbol('stackItems') // 声明一个Symbol类型的变量_items
+const _items = Symbol("stackItems"); // 声明一个Symbol类型的变量_items
 
 class Stack3 {
   constructor() {
-    this[_items] = [] // 初始化
+    this[_items] = []; // 初始化
   }
 
   push(element) {
-    this[_items].push(element)
+    this[_items].push(element);
   }
 
   // ...
   print() {
-    let str = ''
+    let str = "";
     for (const item of this[_items]) {
-      str += item
+      str += item;
     }
-    return str
+    return str;
   }
 }
 
 // 但是ES6新增的Object.getOwnPropertySymbols方法仍然能够取到类里面的所有Symbols属性。
-const _stack1 = new Stack3()
-_stack1.push(0)
-_stack1.push(1)
-_stack1.push(2)
-_stack1.push(3)
-_stack1.push(4)
-console.log(_stack1.print()) // 01234
-const _obj = Object.getOwnPropertySymbols(_stack1)
-console.log(_obj) // [Symbol(stackItems)]
-_stack1[_obj[0]].push(5)
-console.log(_stack1.print()) // 012345
+const _stack1 = new Stack3();
+_stack1.push(0);
+_stack1.push(1);
+_stack1.push(2);
+_stack1.push(3);
+_stack1.push(4);
+console.log(_stack1.print()); // 01234
+const _obj = Object.getOwnPropertySymbols(_stack1);
+console.log(_obj); // [Symbol(stackItems)]
+_stack1[_obj[0]].push(5);
+console.log(_stack1.print()); // 012345
 
 // 从以上代码可以看出，我们还是可以通过方法获取到_items的，并且_items属性是一个数组，可以任意对其进行数组所有的操作。然后，我们操作的是栈这种数据结构，不应该出现这种行为。
 
@@ -174,42 +174,42 @@ console.log(_stack1.print()) // 012345
  *
  * 注：JavaScript中有一个新的提案是可以给类增加私有属性。
  */
-const items = new WeakMap()
-class Stack {
+const items = new WeakMap();
+export class Stack {
   constructor() {
-    items.set(this, [])
+    items.set(this, []);
   }
 
   push(element) {
-    items.get(this).push(element)
+    items.get(this).push(element);
   }
 
   pop() {
-    return items.get(this).pop()
+    return items.get(this).pop();
   }
 
   peek() {
-    const s = items.get(this)
-    return s[s.length - 1]
+    const s = items.get(this);
+    return s[s.length - 1];
   }
 
   size() {
-    const s = items.get(this)
-    return s.length
+    const s = items.get(this);
+    return s.length;
   }
 
   isEmpty() {
-    const s = items.get(this)
-    return s.length === 0
+    const s = items.get(this);
+    return s.length === 0;
   }
 
   print() {
-    const s = items.get(this)
-    let str = ''
+    const s = items.get(this);
+    let str = "";
     for (const item of s) {
-      str += item
+      str += item;
     }
-    return str
+    return str;
   }
 }
 
@@ -217,52 +217,52 @@ class Stack {
  * 栈解决实际问题：十进制转换成二进制
  */
 function decimalToBinary(decNumber) {
-  const remStack = new Stack()
-  let number = decNumber
-  let rem
-  let binaryString = ''
+  const remStack = new Stack();
+  let number = decNumber;
+  let rem;
+  let binaryString = "";
   while (number > 0) {
-    rem = Math.floor(number % 2)
-    remStack.push(rem)
-    number = Math.floor(number / 2)
+    rem = Math.floor(number % 2);
+    remStack.push(rem);
+    number = Math.floor(number / 2);
   }
   while (!remStack.isEmpty()) {
-    binaryString += remStack.pop().toString()
+    binaryString += remStack.pop().toString();
   }
 
-  return binaryString
+  return binaryString;
 }
 
-console.log(decimalToBinary(10)) // 1010
+console.log(decimalToBinary(10)); // 1010
 
 /**
  * 通用进制转换：把十进制转换成基数为2~36的任意进制
  */
 function baseConverter(decNumber, base) {
-  const remStack = new Stack()
-  const digits = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-  let number = decNumber
-  let rem
-  let str = ''
+  const remStack = new Stack();
+  const digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let number = decNumber;
+  let rem;
+  let str = "";
 
   // 如果不在2~36之内，就直接返回空字符串
   if (!(base > 2 && base < 36)) {
-    return ''
+    return "";
   }
 
   while (number > 0) {
-    rem = Math.floor(number % base)
-    remStack.push(rem)
-    number = Math.floor(number / base)
+    rem = Math.floor(number % base);
+    remStack.push(rem);
+    number = Math.floor(number / base);
   }
 
   while (!remStack.isEmpty()) {
-    str += digits[remStack.pop()]
+    str += digits[remStack.pop()];
   }
 
-  return str
+  return str;
 }
 
-console.log(baseConverter(100, 8)) // 144
-console.log(baseConverter(12313, 16)) // 123019
-console.log(baseConverter(12143543534, 16)) // 2D3CFC4EE
+console.log(baseConverter(100, 8)); // 144
+console.log(baseConverter(12313, 16)); // 123019
+console.log(baseConverter(12143543534, 16)); // 2D3CFC4EE
