@@ -20,6 +20,7 @@ function partition(array, left, right, compareFn) {
   }
   return i;
 }
+
 function quick(array, left, right, compareFn) {
   let index;
   if (array.length > 1) {
