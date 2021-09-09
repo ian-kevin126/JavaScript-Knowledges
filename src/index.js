@@ -1,1 +1,1 @@
-import "./Practices/stack";
+import "./Practices/data-structures-review";
