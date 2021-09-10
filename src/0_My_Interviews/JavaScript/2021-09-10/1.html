@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    // 1，输出以下程序的结果
+    function Foo() {
+      getName = function () {
+        console.log(1);
+      };
+      return this;
+    }
+    Foo.getName = function () {
+      console.log(2);
+    };
+    Foo.prototype.getName = function () {
+      console.log(3);
+    };
+    var getName = function () {
+      console.log(4);
+    };
+    function getName() {
+      console.log(5);
+    }
+
+    // 2，请写出以下输出结果：
+    Foo.getName(); // 2
+    getName(); // 4
+    Foo().getName(); // 1
+    getName(); // 1
+
+    // console.log(Foo.getName); // f(){console.log(2);}
+    // console.log(Foo.getName()); // undefined
+    // console.log(new Foo.getName()); // undefined
+    new Foo.getName(); // 2
+
+    new Foo().getName(); // 3
+    new new Foo().getName(); // 3
+
+    // 请输入以下程序的结果
+    // function test() {
+    //   for (var i = 0; i < 3; i++) {
+    //     var img = document.createElement("img");
+    //     img.src = "img" + i + ".png";
+    //     img.onload = function () {
+    //       alert(i);
+    //     };
+    //     document.body.appendChild(img);
+    //   }
+    // }
+    // test();
+
+    // 3，实现一个函数，判断输入的是不是回文字符串
+    function fun(str) {
+      if (typeof str !== "string") return false;
+      return str.split("").reverse().join("") === str;
+    }
+  </script>
+</html>
