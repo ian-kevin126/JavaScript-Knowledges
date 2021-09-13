@@ -60,5 +60,21 @@
       if (typeof str !== "string") return false;
       return str.split("").reverse().join("") === str;
     }
+
+    // 4，实现Storage，这里就需要使用到单例模式了
+    var instance = null;
+    class Storage {
+      static getInstance() {
+        if (!instance) {
+          instance = new Storage();
+        }
+        return instance;
+      }
+
+      setItem = (key, value) => localStorage.setItem(key, value);
+      getItem = (key) => localStorage.getItem(key);
+    }
+
+    // console.log(Storage.getInstance().setItem("kevin", "kevinliao125"));
   </script>
 </html>
