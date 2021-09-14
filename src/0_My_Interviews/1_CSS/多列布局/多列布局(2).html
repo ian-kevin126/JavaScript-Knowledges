@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* 我们还可以用table来实现多列布局，父元素设置display为table，那它的宽度就是内容的宽度，所以我们需要手动指定宽度为100%。两个子级设置display为table-cell。
+      这样它们其实就相当于table的两个单元格。由于我们要固定左边的宽度，父级table应该使用布局优先，即table-layout: fixed;这时候如果左右两边要间距，是没法设置
+      margin的，因为它们是单元格，但是我们可以在左边子级上设置padding-left。 */
+      .parent {
+        background-color: violet;
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+      }
+
+      .left {
+        display: table-cell;
+        width: 100px;
+        padding-right: 20px;
+        background-color: tomato;
+      }
+
+      .right {
+        display: table-cell;
+        background-color: rgb(8, 52, 59);
+      }
+
+      /* 
+      补充知识：table-layout
+
+      table-layout有两个值：
+      - 1，fixed：是表格布局优先，列宽由表格宽度和列宽度设定，而与单元格的内容无关，这种模式下，浏览器在接收表格第一行后就可以渲染，速度更快；
+      - 2，auto：默认值，表示表格内容优先，列的宽度是由列单元格中没有折行的最宽的内容设定的。此算法有时候会比较慢，这是由于它需要在确定最终的布局之前访问表格中的所有内容。
+      
+      */
+    </style>
+  </head>
+  <body>
+    <div class="parent">
+      <div class="left">
+        <p>left</p>
+      </div>
+      <div class="right">
+        <p>right</p>
+        <p>right</p>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .parent {
+        background-color: wheat;
+      }
+
+      .parent .left {
+        background-color: rgb(102, 109, 212);
+        float: left;
+        width: 100px;
+        margin-right: 20px;
+      }
+
+      .parent .right {
+        background-color: rgb(112, 212, 187);
+        /* margin-left: 120px; */
+        /* 还有一种解决浮动带来的脱离标准文档流问题思路是BFC */
+        overflow: hidden;
+        /* 
+        关于BFC（块级格式化上下文）：web页面中盒模型布局的CSS渲染模式，指一个独立的渲染区域或者说是一个隔离的独立容器。
+        
+        BFC的特性：
+        - 1，内部的 box 会在垂直方向上一个接一个地放置
+        - 2，垂直方向上的距离由 margin 决定
+        - 3，BFC 的区域不会与 float 的元素区域重叠
+        - 4，计算 BFC 的高度时，浮动元素也参与计算
+        - 5，BFC 就是页面上的一个独立容器，容器里面的子元素不会影响到外面的元素
+        
+        BFC的触发条件：
+        - 1，浮动元素：float 除 none 之外的值；
+        - 2，定位元素：position-absolute、fixed
+        - 3，display：inline-block、table-cell、table-caption
+        - 4，overflow：除了visible之外的值（hidden、auto、scroll）
+        
+        # 1，外边距融合问题
+        <div class="parent">
+          <div class="child"></div>
+          <div class="child"></div>
+        </div>
+
+        .child {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        /-  上述代码两个child之间的间距是20px，而不是30px，因为垂直的margin会合并。但如果我给上面第一个child再套一个容器，
+        使用overflow:hidden;他就成了一个BFC，根据BFC的特性，BFC的子元素不会影响外面的元素，margin就不会合并，两个child的间距就是30px; -/
+
+        解决方案：
+        <div class="parent3">
+          <div class="overflow">
+            <div class="child3">child4</div>
+          </div>
+          <div class="child3">child4</div>
+        </div>
+
+        .child3 {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .overflow {
+            overflow: hidden;
+        }
+
+        - BFC是一个独立的容器，不会被浮动元素覆盖，里面的文字也不会环绕浮动元素，我们这里的两栏布局就是利用的这个特性。
+        - 计算BFC高度时，浮动元素的高度也会计算其中，这不就是我们用来清除浮动的一种做法吗?
+        
+        */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="parent">
+      <div class="left">
+        <p>left</p>
+      </div>
+      <div class="right">
+        <p>right</p>
+        <p>right</p>
+      </div>
+    </div>
+  </body>
+</html>

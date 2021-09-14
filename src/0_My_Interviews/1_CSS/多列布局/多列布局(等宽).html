@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* 等宽布局方案一：
+      每个元素的宽度都是相同的，而且它们之间还可能有间距，如果没有间距，很好实现，每个元素宽度设置为25%就行了。
+      但是如果有间距，每个元素设置25%的宽度就不合适了。
+      |---------C-----------|
+      | W |G| W |G| W |G| W |
+      C = W * n + G * (n - 1) // 此处n为4
+ ==>  C = W * n + G * n - G
+ ==>  C = (W + G) * n - G
+ ==>  C + G = (W + G) * n
+
+ 通过最终变换后的等式 C + G = (W + G) * n，将上面的图变成了下面这个：
+      G|--------C------------|
+      G| W |G| W |G| W |G| W |
+       */
+
+      .parent {
+        margin-left: -20px;
+        background-color: thistle;
+      }
+
+      .column {
+        float: left;
+        width: 25%;
+        padding-left: 20px;
+        box-sizing: border-box;
+      }
+
+      .column p {
+        background-color: teal;
+      }
+
+      /* 等宽布局方案二：
+      还可以使用table布局，我们就不需要写死25%了，因为在table-layout: fixed;的情况下，列宽不是根据内容计算的，默认列宽是相等的，天生就是等宽。但是在实现的时候需要注意的
+      是，我们需要在parent外面再嵌套一层容器，因为用table肯定会把parent设置成宽度是100%的，没办法进行拓宽，再套一个容器的目的就是给它拓宽用的。 */
+      .wrapper {
+        margin-left: -20px;
+      }
+
+      .parent1 {
+        background-color: teal;
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+      }
+
+      .column1 {
+        background-color: thistle;
+        display: table-cell;
+        padding-left: 20px;
+      }
+
+      /* 等宽布局方案三：
+      用flex布局来实现就很简单了
+       */
+      .parent2 {
+        margin-top: 20px;
+        display: flex;
+        background-color: teal;
+      }
+
+      .column2 {
+        flex: 1;
+      }
+
+      .column2 + .column2 {
+        margin-left: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="parent">
+      <div class="column"><p>1</p></div>
+      <div class="column"><p>2</p></div>
+      <div class="column"><p>3</p></div>
+      <div class="column"><p>4</p></div>
+    </div>
+
+    <div class="wrapper">
+      <div class="parent1">
+        <div class="column1"><p>1</p></div>
+        <div class="column1"><p>2</p></div>
+        <div class="column1"><p>3</p></div>
+        <div class="column1"><p>4</p></div>
+      </div>
+    </div>
+
+    <div class="parent2">
+      <div class="column2"><p>1</p></div>
+      <div class="column2"><p>2</p></div>
+      <div class="column2"><p>3</p></div>
+      <div class="column2"><p>4</p></div>
+    </div>
+  </body>
+</html>

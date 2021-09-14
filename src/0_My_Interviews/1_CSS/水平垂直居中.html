@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .margin {
+        height: 20px;
+      }
+      /* 水平垂直居中（1）：text-align + inline-block + table-cell + vertical-align */
+      .parent1 {
+        background-color: rgb(6, 66, 46);
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+        height: 300px;
+        width: 300px;
+      }
+
+      .child1 {
+        color: white;
+        display: inline-block;
+      }
+
+      /* 水平垂直居中（2）：absolute + transform */
+      .parent2 {
+        background-color: rgb(6, 66, 46);
+        position: relative;
+        height: 300px;
+      }
+
+      .child2 {
+        background-color: rgb(204, 204, 102);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      /* 水平垂直居中（3）：flex + (align-items + justify-content) 或者 margin */
+      .parent3 {
+        background-color: rgb(6, 66, 46);
+        height: 300px;
+        display: flex;
+        /* align-items: center; */
+        /* justify-content: center; */
+      }
+
+      .child3 {
+        background-color: rgb(204, 204, 102);
+        margin: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="parent1">
+      <div class="child1">Demo1</div>
+    </div>
+
+    <div class="margin"></div>
+    <div class="parent2">
+      <div class="child2">Demo2</div>
+    </div>
+
+    <div class="margin"></div>
+    <div class="parent3">
+      <div class="child3">Demo3</div>
+    </div>
+  </body>
+</html>

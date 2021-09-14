@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .parent {
+        background-color: tomato;
+        display: flex;
+      }
+
+      .left {
+        width: 100px;
+        margin-right: 20px;
+        background-color: thistle;
+      }
+
+      .right {
+        flex: 1;
+        background-color: teal;
+      }
+
+      /* 
+      知识点：flex: 1; 是 flex: 1 1 0; 的简写，对应的完全体是：
+      {
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: 0;
+      }
+      - flex-grow：设置元素的扩展比例，假如父级元素的总宽度为500px，子元素A、B、C三个元素的flex-grow分别为1、2、2，那么它们的宽度比例为1:2:2，三个元素最终的宽度为100px、200px、200px。
+      - flex-shrink：设置元素的收缩比例。假如父级元素总宽度为500px，现在又A、B、C、D、E五个子元素，它们的flex-shrink分别为1、1、1、2、2，它们的flex-basis都是120px。计算可知，五个子元素的
+        总宽度为120*5=600px，超出了父元素100px，所以需要对子元素进行收缩。收缩的时候就要通过flex-shrink来计算每个元素收缩多少个px。按照上面的比例，flex-shrink的总和为1+1+1+2+2=7.所以将超
+        出的100px分为7份，每份约14px，然后按照flex-shrink进行收缩。A、B、C的份数都是1，所以它们收缩14px，它们的最终宽度是120px-14px=106px；D、E的份数是2，它们收缩28px，最终的宽度是120px-28px=92px。
+      - flex-basis：设置元素的初始值，扩展和收缩都以此为参照物。
+
+      */
+    </style>
+  </head>
+  <body>
+    <div class="parent">
+      <div class="left">
+        <p>left</p>
+      </div>
+      <div class="right">
+        <p>right</p>
+        <p>right</p>
+      </div>
+    </div>
+  </body>
+</html>

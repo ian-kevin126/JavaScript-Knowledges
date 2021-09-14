@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .margin {
+        height: 20px;
+      }
+      /* 水平居中（1）：text-align + inline-block */
+      .parent1 {
+        background-color: rgb(6, 66, 46);
+        /* text-align 会对 inline 的子级元素生效，设置 center 就会实现水平居中 */
+        text-align: center;
+      }
+
+      .child1 {
+        background-color: rgb(204, 204, 102);
+        /* display 设置为 inline-block，子级就会变成行内块元素，宽度由自身内容自适应，不会撑满父级盒子。 */
+        display: inline-block;
+        /* text-align 会继承，child 的子级也会水平居中，如果我们想恢复默认，手动写为左对齐就好了。 */
+        text-align: left;
+      }
+
+      /* 水平居中（2）：table + margin，这种方法适合于父级元素和子级元素宽度都不固定的情况，如果直到子级元素的宽度就很简单了，直接 margin auto。 */
+      .parent2 {
+        background-color: rgb(6, 66, 46);
+      }
+
+      .child2 {
+        background-color: rgb(204, 204, 102);
+        /* display 设置为table，如果不指定宽度，宽度就是自适应内容 */
+        display: table;
+        /* display 如果是 table，margin auto就能生效，否则无法生效。 */
+        margin: 0 auto;
+      }
+
+      /* 水平居中（3）：absolute + transform */
+      .parent3 {
+        background-color: rgb(6, 66, 46);
+        /* 父级元素设置relative，好让子元素相对于父元素定位，需要注意的是：在不设置宽高的情况下，relative定位会使得父元素的高度变为0。所以在这里，我们将看不到父元素。 */
+        position: relative;
+      }
+
+      .child3 {
+        background-color: rgb(204, 204, 102);
+        position: absolute;
+        /* 让子元素的左边向右移动父级宽度的 50% 的距离 */
+        left: 50%;
+        /* translateX 百分比相对的是自身的宽度。 */
+        transform: translateX(-50%);
+      }
+
+      /* 水平居中（4）：flex + justify-content/margin */
+      .parent4 {
+        background-color: rgb(6, 66, 46);
+        display: flex;
+        /* 当然还有 justify-content：center；这种实现方法 */
+      }
+
+      .child4 {
+        background-color: rgb(204, 204, 102);
+        /* flex 盒子包裹的子元素都会变成宽度和内容自适应的盒子，所以使用margin auto就可以实现水平居中。 */
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="parent1">
+      <div class="child1">Demo1</div>
+    </div>
+
+    <div class="margin"></div>
+    <div class="parent2">
+      <div class="child2">Demo2</div>
+    </div>
+
+    <div class="margin"></div>
+    <div class="parent3">
+      <div class="child3">Demo3</div>
+    </div>
+
+    <div class="margin"></div>
+    <div class="parent4">
+      <div class="child4">Demo4</div>
+    </div>
+  </body>
+</html>

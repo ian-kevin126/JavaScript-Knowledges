@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      /* 不定宽+自适应：两列布局，左边不定宽，宽度由内容决定，右边自适应 */
+      /* .left {
+        background-color: thistle;
+        float: left;
+        margin-right: 20px;
+      }
+      .right {
+        background-color: tomato;
+        overflow: hidden;
+      } */
+
+      /* 使用table也可以实现，但是要注意的是table-layout就不能设置为fixed了，因为左边的宽度不定，直接使用默认值auto就可以了。默认的auto
+      是由内容决定宽度的，左右两边如果内容一样长，那他们的长度可能是一样的，都有留白。 */
+
+      .parent {
+        background-color: tomato;
+        display: table;
+        width: 100%;
+      }
+
+      .left,
+      .right {
+        background-color: rgb(71, 99, 255);
+        display: table-cell;
+      }
+
+      /* 但是，如果我们希望的是左边挤到内容区，留白给右边，只需要给左边加一个很小的宽度，比如width: 0.1%，或者 1px 就行。 */
+      .left {
+        background-color: violet;
+        width: 0.1%;
+        padding-right: 20px;
+      }
+
+      /* 当然还有flex来实现，非常简单 */
+      /* .parent {
+        display: flex;
+      }
+
+      .left {
+        margin-right: 20px;
+      }
+
+      .right {
+        flex: 1;
+      } */
+    </style>
+  </head>
+  <body>
+    <div class="parent">
+      <div class="left">
+        <p>leftleftleftleftleftleftleftleftleftleftleft</p>
+      </div>
+      <div class="right">
+        <p>right</p>
+      </div>
+    </div>
+  </body>
+</html>

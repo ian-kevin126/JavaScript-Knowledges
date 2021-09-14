@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .margin {
+        height: 20px;
+      }
+      /* 垂直居中（1）：table-cell + vertical-align */
+      .parent1 {
+        background-color: rgb(6, 66, 46);
+        display: table-cell;
+        vertical-align: middle;
+        height: 300px;
+      }
+
+      .child1 {
+        color: white;
+      }
+
+      /* 垂直居中（2）：absolute + transform，这种方法适合于父级元素和子级元素宽度都不固定的情况，如果直到子级元素的宽度就很简单了，直接 margin auto。 */
+      .parent2 {
+        background-color: rgb(6, 66, 46);
+        position: relative;
+        height: 300px;
+      }
+
+      .child2 {
+        background-color: rgb(204, 204, 102);
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      /* 垂直居中（3）：flex + align-items/margin */
+      .parent3 {
+        background-color: rgb(6, 66, 46);
+        height: 300px;
+        display: flex;
+        /* align-items: center; */
+      }
+
+      .child3 {
+        background-color: rgb(204, 204, 102);
+        margin: auto 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="parent1">
+      <div class="child1">Demo1</div>
+    </div>
+
+    <div class="margin"></div>
+    <div class="parent2">
+      <div class="child2">Demo2</div>
+    </div>
+
+    <div class="margin"></div>
+    <div class="parent3">
+      <div class="child3">Demo3</div>
+    </div>
+  </body>
+</html>
