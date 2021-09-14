@@ -1,4 +1,4 @@
-const DoublyLinkedList = require('./doubly_linked_list');
+const DoublyLinkedList = require("./doubly_linked_list");
 
 /**
  * Class for Stacks
@@ -38,7 +38,7 @@ class Stack {
    */
   push(data) {
     if (Array.isArray(data)) {
-      data.forEach(val => this._list.push(val));
+      data.forEach((val) => this._list.push(val));
     } else {
       this._list.push(data);
     }
