@@ -1,206 +1,192 @@
-const Node = require('./Node/singlyNode.js');
+const Node = require("./Node/singlyNode.js");
 
-class SinglyLinkedList
-{
-    constructor()
-    {
-        this.head = null;
-        this.size = 0;
+class SinglyLinkedList {
+  constructor() {
+    this.head = null;
+    this.size = 0;
+  }
+
+  // Prepends data
+  prepend(
+    data // Time Complexity O(1)
+  ) {
+    this.head = new Node(data, this.head);
+    this.size++;
+
+    console.log(`Data '${data}' is PREPENDED `);
+  }
+
+  // Appends data
+  append(
+    data // Time Complexity O(n)
+  ) {
+    let node = new Node(data);
+    let current;
+
+    // If empty, make head
+    if (!this.head) this.head = node;
+    else {
+      current = this.head;
+
+      while (current.next) {
+        current = current.next; // Traverse through the list
+      }
+
+      current.next = node;
     }
 
-    // Prepends data
-    prepend(data)                               // Time Complexity O(1)
-    {
-        this.head = new Node(data, this.head);
-        this.size++;
+    this.size++;
 
-        console.log(`Data '${data}' is PREPENDED `);
-    }
-    
-    // Appends data
-    append(data)                                // Time Complexity O(n)
-    {
-        let node = new Node(data);
-        let current;
+    console.log(`Data '${data}' is APPENDED `);
+  }
 
-        // If empty, make head
-        if(!this.head) this.head = node;
-        else
-        {
-            current = this.head;
-
-            while (current.next)
-            {
-                current = current.next;     // Traverse through the list
-            }
-
-            current.next = node;
-        }
-
-        this.size++;
-
-        console.log(`Data '${data}' is APPENDED `);
-    }
-
-    // Inserts at any index
-    insertAt(data, index)                       // Time Complexity O(n)
-    {
-        // If index is out of range
-        this.outOfRange(index);
-
-        // If first index
-        if(index === 0) return this.prepend(data);
-
-        const node = new Node(data);
-
-        let current, previous;
-
-        // Set current to first
-        current = this.head;
-        
-        for(let count = 0; count < index; count++)
-        {
-            previous = current; // Node before index
-            current = current.next; // Node after index
-        }
-
-        node.next = current;
-        previous.next = node;
-
-        this.size++;
-
-        console.log(`Data '${data}' is INSERTED at index ${index}`);
-    }
-
-    // Gets the value of an index
-    getIndex(index) 
-    {
-        let current = this.head;
-        let count = 0;
-
-        for(let i =0; i < this.size; i++)
-        {
-            if(count === index) console.log(`Data at index ${index} is: ${current.data}`);
-            count++;
-            current = current.next;
-        }
-        
-        if(index > count) console.log("Index doesn't exist");    
-    }
-
-    // Gets the index of an data
-    getData(data)
-    {
-        let current = this.head;
-        let index = -1;
-        let found = 0;
-
-        for(let i =0; i < this.size; i++)
-        {
-            index++;
-            if(current.data === data)
-            {
-                found = 1;
-                console.log(`Data ${current.data} is at index ${index}`);
-            }
-            current = current.next;
-        }
-
-        if(!found) console.log("Data doesn't exist");;
-    }
-
-    // Removes Index
-    removeIndex(index)                          // Time Complexity O(n)
-    {
-        // If index is out of range
-        this.outOfRange(index)
-
-        let current = this.head;
-        let previous;
-
-        // Remove first
-        if(this.head === 0) this.head = current.next;
-        else
-        {
-            for(let count = 0; count < index; count++)
-            {
-                previous = current;
-                current = current.next;
-            }
-            
-            previous.next = current.next;
-        }
-
-        this.size--;
-
-        console.log(`Data '${current.data}' is REMOVED from index ${index}`);
-    }
-    
-    // Clears Linked list
-    clear()
-    {
-        this.head = null;
-        this.size = 0;
-    }
-
-    // Prints Data(s) of Linked List
-    printData()
-    {
-        let current = this.head;
-
-        console.log('Data(s) of Linked List:');
-
-        for (let i = 0; i < this.size; i++)
-        {
-            console.log(`Data: ${current.data}`);
-            current = current.next;
-        }
-    }
-
-    // Prints Linked List
-    printLinkedList()
-    {
-        let current = this.head;
-
-        console.log('Linked List:');
-
-        for (let i = 0; i < this.size; i++)
-        {   
-            console.log(current);
-            current = current.next;
-        }
-    }
-
+  // Inserts at any index
+  insertAt(
+    data,
+    index // Time Complexity O(n)
+  ) {
     // If index is out of range
-    outOfRange(index)
-    {
-        if(index > 0 && index > this.size) throw new RangeError("Index out of range");
-    }
-    // Size of Linked List
-    length()
-    {
-        console.log(`Length of Linked List: ${this.size}`);
-    }
-    
-    // Reverses Linked list
-    reverseLinkedList()
-    {
-        let current = this.head;
-        let previous = null;
-        let next = null;
+    this.outOfRange(index);
 
-        console.log('Reversed Linked List:')
+    // If first index
+    if (index === 0) return this.prepend(data);
 
-        while (current !== null) 
-        {
-            next = current.next;
-            current.next = previous;
-            console.log(current);
-            previous = current;
-            current = next;
-        }
-        this.head = previous;
+    const node = new Node(data);
+
+    let current, previous;
+
+    // Set current to first
+    current = this.head;
+
+    for (let count = 0; count < index; count++) {
+      previous = current; // Node before index
+      current = current.next; // Node after index
     }
+
+    node.next = current;
+    previous.next = node;
+
+    this.size++;
+
+    console.log(`Data '${data}' is INSERTED at index ${index}`);
+  }
+
+  // Gets the value of an index
+  getIndex(index) {
+    let current = this.head;
+    let count = 0;
+
+    for (let i = 0; i < this.size; i++) {
+      if (count === index)
+        console.log(`Data at index ${index} is: ${current.data}`);
+      count++;
+      current = current.next;
+    }
+
+    if (index > count) console.log("Index doesn't exist");
+  }
+
+  // Gets the index of an data
+  getData(data) {
+    let current = this.head;
+    let index = -1;
+    let found = 0;
+
+    for (let i = 0; i < this.size; i++) {
+      index++;
+      if (current.data === data) {
+        found = 1;
+        console.log(`Data ${current.data} is at index ${index}`);
+      }
+      current = current.next;
+    }
+
+    if (!found) console.log("Data doesn't exist");
+  }
+
+  // Removes Index
+  removeIndex(
+    index // Time Complexity O(n)
+  ) {
+    // If index is out of range
+    this.outOfRange(index);
+
+    let current = this.head;
+    let previous;
+
+    // Remove first
+    if (this.head === 0) this.head = current.next;
+    else {
+      for (let count = 0; count < index; count++) {
+        previous = current;
+        current = current.next;
+      }
+
+      previous.next = current.next;
+    }
+
+    this.size--;
+
+    console.log(`Data '${current.data}' is REMOVED from index ${index}`);
+  }
+
+  // Clears Linked list
+  clear() {
+    this.head = null;
+    this.size = 0;
+  }
+
+  // Prints Data(s) of Linked List
+  printData() {
+    let current = this.head;
+
+    console.log("Data(s) of Linked List:");
+
+    for (let i = 0; i < this.size; i++) {
+      console.log(`Data: ${current.data}`);
+      current = current.next;
+    }
+  }
+
+  // Prints Linked List
+  printLinkedList() {
+    let current = this.head;
+
+    console.log("Linked List:");
+
+    for (let i = 0; i < this.size; i++) {
+      console.log(current);
+      current = current.next;
+    }
+  }
+
+  // If index is out of range
+  outOfRange(index) {
+    if (index > 0 && index > this.size)
+      throw new RangeError("Index out of range");
+  }
+  // Size of Linked List
+  length() {
+    console.log(`Length of Linked List: ${this.size}`);
+  }
+
+  // Reverses Linked list
+  reverseLinkedList() {
+    let current = this.head;
+    let previous = null;
+    let next = null;
+
+    console.log("Reversed Linked List:");
+
+    while (current !== null) {
+      next = current.next;
+      current.next = previous;
+      console.log(current);
+      previous = current;
+      current = next;
+    }
+    this.head = previous;
+  }
 }
 
 module.exports = SinglyLinkedList;

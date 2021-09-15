@@ -1,82 +1,70 @@
-class PriorityQueue
-{
-    constructor()
-    {
-        this.list = [];
-    }
+class PriorityQueue {
+  constructor() {
+    this.list = [];
+  }
 
-    // Adds element to the rear of the Queue
-    enqueue(element)                                    // Time Complexity O(1)
-    {
-        if(this.isEmpty())
-        {
-            this.list.push(element);
+  // Adds element to the rear of the Queue
+  enqueue(
+    element // Time Complexity O(1)
+  ) {
+    if (this.isEmpty()) {
+      this.list.push(element);
+    } else {
+      let added = false;
+      for (let i = 0; i < this.list.length; i++) {
+        if (element[1] < this.list[i][1]) {
+          // Checking priorities
+          this.list.splice(i, 0, element);
+          added = true;
+          break;
         }
-        else
-        {
-            let added = false;
-            for(let i = 0; i < this.list.length; i++)
-            {
-                if(element[1] < this.list[i][1])        // Checking priorities
-                {
-                    this.list.splice(i, 0 , element);
-                    added = true;
-                    break;
-                }
-            }
-            if(!added)
-            {
-                this.list.push(element);
-            }
-        }
+      }
+      if (!added) {
+        this.list.push(element);
+      }
     }
+  }
 
-    // Removes element from the front of the Queue
-    dequeue()                                           // Time Complexity O(n)
-    {
-        return this.list.shift();
-    }
+  // Removes element from the front of the Queue
+  dequeue() {
+    // Time Complexity O(n)
+    return this.list.shift();
+  }
 
-    // Prints Queue
-    print()
-    {
-        console.log(this.list);
-    }
+  // Prints Queue
+  print() {
+    console.log(this.list);
+  }
 
-    // Checks if Queue is empty
-    isEmpty()
-    {
-        return this.list.length === 0;
-    }
+  // Checks if Queue is empty
+  isEmpty() {
+    return this.list.length === 0;
+  }
 
-    // Size of Queue
-    size()
-    {
-        console.log(`Size of Queue: ${this.list.length}`);
-        return this.list.length;
-    }
+  // Size of Queue
+  size() {
+    console.log(`Size of Queue: ${this.list.length}`);
+    return this.list.length;
+  }
 
-    // Front value of Queue
-    front()
-    {
-        console.log(`Front value: ${this.list[0]} `);
-        return this.list[0];
-    }
+  // Front value of Queue
+  front() {
+    console.log(`Front value: ${this.list[0]} `);
+    return this.list[0];
+  }
 
-    // Rear value of Queue
-    rear()
-    {
-        console.log(`Rear value: ${this.list[this.list.length-1]} `);
-        return this.list[this.list.length-1];
-    }
+  // Rear value of Queue
+  rear() {
+    console.log(`Rear value: ${this.list[this.list.length - 1]} `);
+    return this.list[this.list.length - 1];
+  }
 
-    // Clears Queue
-    clear()
-    {
-        console.log('items cleared..')
-        this.list.length = 0;
-        return this.list = [];
-    }
+  // Clears Queue
+  clear() {
+    console.log("items cleared..");
+    this.list.length = 0;
+    return (this.list = []);
+  }
 }
 
 // FIFO Principle (FIFO : First in First Out)
@@ -108,4 +96,3 @@ priQueue.print();
 
 priQueue.size();
 */
-

@@ -28,7 +28,7 @@ class FenwickTree {
    */
   buildTree(array) {
     if (!Array.isArray(array)) {
-      throw new Error('Array needs to be passed in order to build the tree');
+      throw new Error("Array needs to be passed in order to build the tree");
     }
 
     for (let i = 0; i < this._length; i += 1) {
@@ -42,7 +42,7 @@ class FenwickTree {
    * @public
    */
   isEmpty() {
-    return (this._length - 1) === 0;
+    return this._length - 1 === 0;
   }
 
   /**
@@ -52,8 +52,8 @@ class FenwickTree {
    * @public
    */
   getSum(index) {
-    if (index + 1 >= (this._length)) {
-      throw new RangeError('Index out of bound');
+    if (index + 1 >= this._length) {
+      throw new RangeError("Index out of bound");
     }
     let sum = 0;
 
@@ -62,7 +62,7 @@ class FenwickTree {
     while (index > 0) {
       sum += this._list[index];
 
-      index -= (index & (-index));
+      index -= index & -index;
     }
 
     return sum;
@@ -80,7 +80,7 @@ class FenwickTree {
 
     while (index <= this._length) {
       this._list[index] += element;
-      index += (index & (-index));
+      index += index & -index;
     }
   }
 

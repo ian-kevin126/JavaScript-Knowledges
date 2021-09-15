@@ -1,22 +1,18 @@
-const SinglyLinkedList = require('../singlyLinkedList.js');
+const SinglyLinkedList = require("../singlyLinkedList.js");
 
-class CircularSinglyLinkedList extends SinglyLinkedList
-{
-    
-    printCircularLinkedList()
-    {
-        let current = this.head;
+class CircularSinglyLinkedList extends SinglyLinkedList {
+  printCircularLinkedList() {
+    let current = this.head;
 
-        console.log('Circular Singly Linked List:');
+    console.log("Circular Singly Linked List:");
 
-        for (let i = 0; i < this.size; i++) 
-        {   
-            console.log(current);
-            current = current.next;
+    for (let i = 0; i < this.size; i++) {
+      console.log(current);
+      current = current.next;
 
-            if(current.next === null) current.next = this.head;
-        }
+      if (current.next === null) current.next = this.head;
     }
+  }
 }
 
 // The lines below are not part of the data structure

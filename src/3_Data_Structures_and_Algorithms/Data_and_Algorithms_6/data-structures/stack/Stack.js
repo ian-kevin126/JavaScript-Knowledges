@@ -7,7 +7,7 @@
 
 // pop - removes the node at the top of the stack and returns the value of that node.
 
-const StackNode = require('./Stack-node');
+const StackNode = require("./Stack-node");
 
 class Stack {
   constructor() {
