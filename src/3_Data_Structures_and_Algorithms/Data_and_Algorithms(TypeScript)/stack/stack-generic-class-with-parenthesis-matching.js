@@ -1,67 +1,65 @@
 // Arrow functions cannot be used as methods or constructors - so, I changed my earlier constructor with arrows to regular function in this class
 
 class Stack {
-    constructor () {
-        this.data = [];
-    }
+  constructor() {
+    this.data = []
+  }
 
-    pop()
-    {
-        // return top most element in the stack
-        // and removes it from the stack
-        // Underflow if stack is empty
-        if (this.data.length == 0) {
-            return "Underflow";
-        } else {
-        return this.data.pop();
-        }
-    }
-
-    top () {
-        return this.data.length;
-    }
-
-    push (...element) {
-        for (var i of element) {
-            return this.data.push(i)
-        }
-    }
-
-    // peek() method looks at the object at the top of this stack without removing it from the stack.  The stack is not modified (it does not remove the element; it only returns the element for information purposes).
-
-    peek () {
-        return this.data[this.data.length - 1];
-    }
-
-    clear () {
-        return this.data = [];
-    }
-
-    length(){
-        return this.data.length;
-    }
-
-    search (value) {
-        for (let i = 0; i < this.data.length; i++) {
-            if (this.data[i] === value) {
-                return value;
-            } else {
-                return false;
-            }
-        }
+  pop() {
+    // return top most element in the stack
+    // and removes it from the stack
+    // Underflow if stack is empty
+    if (this.data.length == 0) {
+      return 'Underflow'
+    } else {
+      return this.data.pop()
     }
   }
 
-  // Parenthesis matching function to return true or false
+  top() {
+    return this.data.length
+  }
 
-  function isParenthesisMatched (str) {
+  push(...element) {
+    for (var i of element) {
+      return this.data.push(i)
+    }
+  }
 
-    let stack = new Stack();
+  // peek() method looks at the object at the top of this stack without removing it from the stack.  The stack is not modified (it does not remove the element; it only returns the element for information purposes).
 
-    let openingParenthesis = ["[", "(", "{"] ;
-    let closingParenthesis = ["]", ")", "}"];
+  peek() {
+    return this.data[this.data.length - 1]
+  }
 
-    /* For each element of the string argument, iterate through each element > check if the current element is any of the opening parenthesis array > If true, push it to stack > IF NOT > there could be 3 cases i.e. ], ), }
+  clear() {
+    return (this.data = [])
+  }
+
+  length() {
+    return this.data.length
+  }
+
+  search(value) {
+    for (let i = 0; i < this.data.length; i++) {
+      if (this.data[i] === value) {
+        return value
+      } else {
+        return false
+      }
+    }
+  }
+}
+
+// Parenthesis matching function to return true or false
+
+function isParenthesisMatched(str) {
+  let stack = new Stack()
+
+  let openingParenthesis = ['[', '(', '{']
+  let closingParenthesis = [']', ')', '}']
+
+  /* For each element of the string argument, iterate through each element > check if the current element is any of the opening parenthesis array > If true, push it to stack > IF NOT > there could be 3 cases i.e. ], ), }
     > check all the 3 cases switching through them >  and comparing this current closing parenthesis with the top element from the stack. Note, that I have only pushed elements from the opening parenthesis to the stack.
     > If any match is found from in the closingParenthesis array and the top-most element from stack, then just pop that element from stack. And apply break for this iteration.
     > So, for each of the
@@ -78,45 +76,44 @@ class Stack {
         And with the above code, third case, that this code will return false, is when although there are matched parenthesis
 
      */
-        for (let i = 0; i < str.length; i++) {
-            if (openingParenthesis.includes(str[i])) {
-                stack.push(str[i]);
-            } else if (closingParenthesis.includes(str[i])) {
-                switch (str[i]) {
-                    case "]":
-                        if (stack.peek() === "[") {
-                            stack.pop();
-                        } else {
-                            return false;
-                        }
-                        break;
+  for (let i = 0; i < str.length; i++) {
+    if (openingParenthesis.includes(str[i])) {
+      stack.push(str[i])
+    } else if (closingParenthesis.includes(str[i])) {
+      switch (str[i]) {
+        case ']':
+          if (stack.peek() === '[') {
+            stack.pop()
+          } else {
+            return false
+          }
+          break
 
-                        case "}":
-                        if (stack.peek() === "{") {
-                            stack.pop();
-                        } else {
-                            return false;
-                        }
-                        break;
+        case '}':
+          if (stack.peek() === '{') {
+            stack.pop()
+          } else {
+            return false
+          }
+          break
 
-                        case ")":
-                        if (stack.peek() === "(") {
-                            stack.pop();
-                        } else {
-                            return false;
-                        }
-                        break;
-                }
-            }
-        }
-        return stack.length() === 0;
-
+        case ')':
+          if (stack.peek() === '(') {
+            stack.pop()
+          } else {
+            return false
+          }
+          break
+      }
+    }
   }
+  return stack.length() === 0
+}
 
-  console.log(isParenthesisMatched("{[()]}"));
+console.log(isParenthesisMatched('{[()]}'))
 
-  console.log(isParenthesisMatched("{()}[]"));
+console.log(isParenthesisMatched('{()}[]'))
 
-  console.log(isParenthesisMatched("{[)]}"));
+console.log(isParenthesisMatched('{[)]}'))
 
-  console.log(isParenthesisMatched("[)"));
+console.log(isParenthesisMatched('[)'))
